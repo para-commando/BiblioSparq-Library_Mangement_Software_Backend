@@ -1,6 +1,6 @@
 const app = require('../app');
 const {
-  myEndPointMiddlewares,myEndPoint2Middlewares, myEndPoint3Middlewares
+  authSignUpMiddlewares
 } = require('../Middlewares/Route-Middlewares/expressRateLimit.middleware');
 const Joi = require('joi');
 const {
@@ -18,27 +18,53 @@ const {
 const logger = require('../../../shared/src/configurations/logger.configurations');
 // API specific Rate-limiting Middleware
 app.post(
-  '/myEndPoint',
-  myEndPointMiddlewares.expressRateLimiterMiddleware,
+  '/routes/library-management-system/Sub-System/authentication/sign-up',
+  authSignUpMiddlewares.expressRateLimiterMiddleware,
   async (req, res, next) => {
     try {
       const schema = Joi.object({
-        name: Joi.string().valid('Anirudh', 'Nayak').default(null),
-        demand: Joi.string()
-          .valid('Highest', 'High', 'Medium', 'Low')
-          .default(null),
-        myTaskStatus: Joi.string()
-          .valid('Not Started', 'In Progress', 'Completed', 'Unassigned')
-          .default(null),
+        firstName: Joi.string().min(2).max(30).required(),
+        lastName: Joi.string().min(2).max(30).default(''),
+        email: Joi.string().email().required(),
+        gender: Joi.string()
+          .valid('male', 'female', 'other', 'prefer not to say')
+          .required(),
+        city: Joi.string().required(),
+        password: Joi.string().min(8).max(30).required(),
+        phoneNo: Joi.string().pattern(new RegExp('^[0-9]{10}$')).required(),
+        state: Joi.string().min(2).max(20).required(),
+        country: Joi.string().min(2).max(20).required(),
       });
-      const validationResult = schema.validate(req.body);
-      if (validationResult.error) {
-        logger.warn('This is a warning message.');
-        logger.error('This is an error message.');
-
-        res.sendStatus(400);
+      const validatedData = schema.validate(req.body);
+      if (validatedData?.error) {
+        throw {
+          status: 400,
+          message: 'Bad Request',
+          error: validatedData?.error,
+        };
       } else {
-        const response = await processMappers.process1(validationResult.value);
+        const {
+          firstName,
+          lastName,
+          email,
+          gender,
+          city,
+          password,
+          phoneNo,
+          state,
+          country,
+        } = validatedData.value;
+        const response = await authenticationProcessMappers.createNewUser({
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          gender: gender,
+          city: city,
+          password: password,
+          phoneNo: phoneNo,
+          state: state,
+          country: country,
+        });
         
         logger.info("🚀 ~ file: microserviceRouters.js:31 ~ response:", response);
         res.json({

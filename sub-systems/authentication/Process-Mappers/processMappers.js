@@ -1,16 +1,32 @@
-const {processes} = require('../Processes/process');
+const {authenticationProcesses} = require('../Processes/process');
 const logger = require ('../../../shared/src/configurations/logger.configurations')
 module.exports.authenticationProcessMappers = {
-    process1: async (asd)=>{
+    createNewUser: async ({
+        firstName,
+        lastName,
+        email,
+        gender,
+        city,
+        password,
+        phoneNo,
+        state,
+        country,
+      }) => {
         try {
-            logger.info(`This is the function argument : ${asd}`);
-            
-            logger.warn('This is a warning message.');
-       const processResponse= await processes.coreProcess1(asd)
-       return processResponse;
+          const response = await authenticationProcesses.createNewUser({
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            gender: gender,
+            city: city,
+            password: password,
+            phoneNo: phoneNo,
+            state: state,
+            country: country,
+          });
+          return response;
+        } catch (error) {
+          throw error;
         }
-        catch (err) {
-            logger.error('This is an error object: ',err);
-        }
-    },
+}
 }
