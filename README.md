@@ -5,11 +5,11 @@ This repository contains the backend microservices for the Library Management Sy
 ![Example Image](./shared/src/assets/library.jpeg)
 
 ## Technologies Used
-Node.js
-Express.js
-Sequelize (ORM)
-Twilio (for SMS notifications)
-Sendinblue (for email notifications)
+- Node.js
+- Express.js
+- Sequelize (ORM)
+- Twilio (for SMS notifications)
+- Sendinblue (for email notifications)
 ## Table of Contents
 
 - [Introduction](#introduction)
