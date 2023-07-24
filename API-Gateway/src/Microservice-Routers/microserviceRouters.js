@@ -1,6 +1,6 @@
 const app = require('../app');
 const {
-  authSignUpMiddlewares, authLoginMiddlewares
+  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares
 } = require('../Middlewares/Route-Middlewares/expressRateLimit.middleware');
 const Joi = require('joi');
 const {
@@ -17,6 +17,81 @@ const {
 } = require('../../../sub-systems/notification-Management/Process-Mappers/processMappers');
 const logger = require('../../../shared/src/configurations/logger.configurations');
 // API specific Rate-limiting Middleware
+
+// ** book-management APIs   *******************
+
+app.post(
+  '/routes/library-management-system/Sub-System/BookManagement/create-book',
+  bookManageCreateBookMiddlewares.expressRateLimiterMiddleware,
+  async (req, res, next) => {
+    try {
+      const schema = Joi.object({
+        ISBN: Joi.string()
+          .pattern(/^(?:(?:\d{9}[X\d])|(?:\d{13}))$/)
+          .required(),
+        bookTitle: Joi.string().required(),
+        author: Joi.string().required(),
+        subtitle: Joi.string().default('No subtitle'),
+        genre: Joi.string().required(),
+        yearOfPublication: Joi.string().required(),
+        bookAvailabilityStatus: Joi.string()
+          .valid('available', 'unavailable')
+          .required(),
+        originalNumberOfCopies: Joi.number().integer().min(1).required(),
+        numberOfCopiesLeft: Joi.number()
+          .integer()
+          .min(0)
+          .max(Joi.ref('originalNumberOfCopies'))
+          .required(),
+      });
+  
+      const validatedData = schema.validate(req.body);
+      if (validatedData?.error) {
+        throw {
+          status: 400,
+          message: 'Bad Request',
+          error: validatedData?.error,
+        };
+      } else {
+        const {
+          ISBN,
+          bookTitle,
+          author,
+          subtitle,
+          genre,
+          yearOfPublication,
+          bookAvailabilityStatus,
+          originalNumberOfCopies,
+          numberOfCopiesLeft,
+        } = validatedData.value;
+
+        const response = await bookManagementProcessMappers.createBook({
+          ISBN: ISBN,
+          bookTitle: bookTitle,
+          author: author,
+          genre: genre,
+          subtitle: subtitle,
+          yearOfPublication: yearOfPublication,
+          bookAvailabilityStatus: bookAvailabilityStatus,
+          originalNumberOfCopies: originalNumberOfCopies,
+          numberOfCopiesLeft: numberOfCopiesLeft,
+        });
+        
+        logger.info("🚀 ~ file: microserviceRouters.js: ~ response:", response);
+        res.json({
+          response: response,
+        });
+      }
+    } catch (error) {
+      logger.error('This is an error message.');
+
+      res.status(400).json({ error: error });
+    }
+  }
+);
+
+// ** Authentication APIs   *******************
+
 app.post(
   '/routes/library-management-system/Sub-System/Authentication/user-authentication/login',
   authLoginMiddlewares.expressRateLimiterMiddleware,
@@ -40,7 +115,7 @@ app.post(
           password: password,
         });
         
-        logger.info("🚀 ~ file: microserviceRouters.js:31 ~ response:", response);
+        logger.info("🚀 ~ file: microserviceRouters.js: ~ response:", response);
         res.json({
           response: response,
         });
@@ -101,7 +176,7 @@ app.post(
           country: country,
         });
         
-        logger.info("🚀 ~ file: microserviceRouters.js:31 ~ response:", response);
+        logger.info("🚀 ~ file: microserviceRouters.js: ~ response:", response);
         res.json({
           response: response,
         });
