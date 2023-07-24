@@ -54,6 +54,14 @@ This API allows a user to create a new account by providing their details in the
 
 ### 2. `user-authentication/login`
 This API allows an existing user to log in to the system by providing their phone number and password.
+
+### Book-Management subsystem
+
+This Subsystem contains APIs for user Book Management, The base URL for all the endpoints in this subsystem is `/BookManagement`, the details of the endPoints in this are:
+
+### 1. `/create-book`
+This API creates a new book in the library by accepting required arguments such as ISBN, book title, author, genre, year of publication, book availability status, original number of copies, and number of copies left. The `ISBN` must be a unique identifier for the book.
+
 ## Features
 
 - **Microservices**: The architecture is based on microservices, where each service represents a specific business functionality or feature.
