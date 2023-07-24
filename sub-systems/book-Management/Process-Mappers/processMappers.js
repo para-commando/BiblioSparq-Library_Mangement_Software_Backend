@@ -1,16 +1,32 @@
-const {processes} = require('../Processes/process');
+const {bookManagementProcesses} = require('../Processes/process');
 const logger = require ('../../../shared/src/configurations/logger.configurations')
 module.exports.bookManagementProcessMappers = {
-    process1: async (asd)=>{
+    createBook:async ({
+        ISBN,
+        bookTitle,
+        author,
+        subtitle,
+        genre,
+        yearOfPublication,
+        bookAvailabilityStatus,
+        originalNumberOfCopies,
+        numberOfCopiesLeft,
+      }) => {
         try {
-            logger.info(`This is the function argument : ${asd}`);
-            
-            logger.warn('This is a warning message.');
-       const processResponse= await processes.coreProcess1(asd)
-       return processResponse;
+          const response = await bookManagementProcesses.createBook({
+            ISBN: ISBN,
+            bookTitle: bookTitle,
+            author: author,
+            genre: genre,
+            subtitle: subtitle,
+            yearOfPublication: yearOfPublication,
+            bookAvailabilityStatus: bookAvailabilityStatus,
+            originalNumberOfCopies: originalNumberOfCopies,
+            numberOfCopiesLeft: numberOfCopiesLeft,
+          });
+          return response;
+        } catch (error) {
+          throw error;
         }
-        catch (err) {
-            logger.error('This is an error object: ',err);
-        }
-    },
+      },
 }
