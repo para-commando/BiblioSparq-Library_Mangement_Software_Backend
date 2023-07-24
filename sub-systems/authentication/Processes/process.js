@@ -5,6 +5,34 @@ const { Op } = require('sequelize');
 require('dotenv').config();
 
 module.exports.authenticationProcesses = {
+  loginUser: async ({ phoneNo, password }) => {
+    try {
+      const user = await db.signUp.findOne({
+        where: { phone_no: phoneNo },
+        raw: true,
+      });
+
+      if (user && Object.keys(user)?.length) {
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        if (isPasswordValid) {
+          return {
+            message: 'user logged-in successfully.',
+          };
+        } else {
+          return {
+            message: 'invalid phone no or password, please retry login',
+          };
+        }
+      } else {
+        return {
+          message: 'invalid phone no or password, please retry login',
+        };
+      }
+    } catch (error) {
+       throw error;
+    }
+  },
     createNewUser: async ({
         firstName,
         lastName,
