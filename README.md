@@ -43,35 +43,12 @@ Feel free to explore the individual middleware modules located in the 'Middlewar
 
 The API offers a diverse range of endpoints, each catering to specific aspects of library management. Here are the key endpoints provided by the Library Management System API:
 
-### /myEndPoint
+### Authentication-subsystem
 
-- Description: This endpoint processes requests and interacts with Microservice 1.
-- HTTP Method: POST
-- Rate Limiting: The requests to this endpoint are rate-limited using the `expressRateLimiterMiddleware` middleware from the `myEndPointMiddlewares` module.
-- Request Body Validation: The incoming request body is validated against a predefined schema using the `Joi` library.
-- Request Processing: Upon successful validation, the request data is passed to the `processMappers.process1` function from Microservice 1's `processMappers` module for further processing.
-- Logging: Logging messages are generated using the `logger` module for different scenarios, such as warnings, errors, and informational messages.
+This Subsystem contains APIs for user authentication, The base URL for all the endpoints in this subsystem is `/Authentication/`, the details of the endPoints in this are:
 
-### /myEndPoint2
-
-- Description: This endpoint processes requests and interacts with Microservice 2.
-- HTTP Method: POST
-- Rate Limiting: The requests to this endpoint are rate-limited using the `expressRateLimiterMiddleware` middleware from the `myEndPoint2Middlewares` module.
-- Request Body Validation: The incoming request body is validated against a predefined schema using the `Joi` library.
-- Request Processing: Upon successful validation, the request data is passed to the `processMappers2.process1` function from Microservice 2's `processMappers` module for further processing.
-- Logging: Logging messages are generated using the `logger` module for different scenarios, such as warnings, errors, and informational messages.
-
-### /myEndPoint3
-
-- Description: This endpoint processes requests and interacts with Microservice 3.
-- HTTP Method: POST
-- Rate Limiting: The requests to this endpoint are rate-limited using the `expressRateLimiterMiddleware` middleware from the `myEndPoint3Middlewares` module.
-- Request Body Validation: The incoming request body is validated against a predefined schema using the `Joi` library.
-- Request Processing: Upon successful validation, the request data is passed to the `processMappers3.process1` function from Microservice 3's `processMappers` module for further processing.
-- Logging: Logging messages are generated using the `logger` module for different scenarios, such as warnings, errors, and informational messages.
-
-Feel free to explore the code in `microserviceRouters.js` for more details on the implementation of each endpoint and its associated middleware.
-
+### 1. `user-authentication/sign-up`
+This API allows a user to create a new account by providing their details in the request body. Upon successful registration, the user can use the same credentials to log in to the system.
 ## Features
 
 - **Microservices**: The architecture is based on microservices, where each service represents a specific business functionality or feature.
