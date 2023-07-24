@@ -1,7 +1,13 @@
-# Backend Microservice Architecture
+# BiblioSparq-Library_Mangement_Software_Backend
 
-This repository demonstrates a sample backend microservice architecture using Node.js and Express.js.
+This repository contains the backend microservices for the Library Management System. These microservices provide various APIs to manage books, notifications, and user-specific history related to the library system.  It follows the RESTful architectural style, employing HTTP methods like GET, POST, PUT, and DELETE for communication. JSON is used as the data exchange format, making it lightweight and widely compatible with modern web and mobile applications.
 
+## Technologies Used
+Node.js
+Express.js
+Sequelize (ORM)
+Twilio (for SMS notifications)
+Sendinblue (for email notifications)
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -13,7 +19,7 @@ This repository demonstrates a sample backend microservice architecture using No
 
 ## Introduction
 
-This project showcases a microservice-based architecture for building scalable and modular backend systems. It aims to provide a foundation for building distributed applications with separate services for different functionalities.
+This Backend Microservices architecture showcasing Library Management system software allows you to efficiently manage and interact with a library system, providing comprehensive functionalities to handle books, borrowers, notifications, and more. With a well-organized set of endpoints, you can seamlessly integrate this API into your library management application to enhance its capabilities and offer an exceptional user experience to your patrons.
 
 ## Middleware
 
@@ -35,7 +41,7 @@ Feel free to explore the individual middleware modules located in the 'Middlewar
 
 ## API Endpoints
 
-The API Gateway service includes multiple endpoints that interact with various microservices. Each endpoint is associated with specific rate-limiting middleware and request processing logic. Here are the details of the endpoints:
+The API offers a diverse range of endpoints, each catering to specific aspects of library management. Here are the key endpoints provided by the Library Management System API:
 
 ### /myEndPoint
 
