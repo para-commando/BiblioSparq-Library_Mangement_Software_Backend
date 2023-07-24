@@ -51,6 +51,9 @@ This Subsystem contains APIs for user authentication, The base URL for all the e
 
 ### 1. `user-authentication/sign-up`
 This API allows a user to create a new account by providing their details in the request body. Upon successful registration, the user can use the same credentials to log in to the system.
+
+### 2. `user-authentication/login`
+This API allows an existing user to log in to the system by providing their phone number and password.
 ## Features
 
 - **Microservices**: The architecture is based on microservices, where each service represents a specific business functionality or feature.
