@@ -1,6 +1,20 @@
 const {bookManagementProcesses} = require('../Processes/process');
 const logger = require ('../../../shared/src/configurations/logger.configurations')
 module.exports.bookManagementProcessMappers = {
+  updateISBN: async ({ oldISBN, newISBN }) => {
+    let isbnValue = {};
+    if (newISBN.length == 10) {
+      isbnValue.isbn10 = newISBN;
+    } else if (newISBN.length == 13) {
+      isbnValue.isbn13 = newISBN;
+    }
+    try {
+      const response = await bookManagementProcesses.updateISBN({ newISBN: isbnValue, oldISBN: oldISBN });
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
   updateBook: async ({
     ISBN,
     bookTitle,
