@@ -62,6 +62,9 @@ This Subsystem contains APIs for user Book Management, The base URL for all the 
 ### 1. `/create-book`
 This API creates a new book in the library by accepting required arguments such as ISBN, book title, author, genre, year of publication, book availability status, original number of copies, and number of copies left. The `ISBN` must be a unique identifier for the book.
 
+### 2. `/delete-book`
+This API is used to delete a book by accepting its ISBN number as input
+
 ## Features
 
 - **Microservices**: The architecture is based on microservices, where each service represents a specific business functionality or feature.
