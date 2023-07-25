@@ -2,6 +2,29 @@ const logger = require('../../../shared/src/configurations/logger.configurations
 const db = require('../../../shared/src/models/index');
 const { Op } = require('sequelize');
 module.exports.bookManagementProcesses = {
+  updateISBN: async ({ oldISBN, newISBN }) => {
+    try {
+      const getAttributes = {};
+      getAttributes[Object.keys(newISBN)[0]] = newISBN[Object.keys(newISBN)[0]];
+
+      const [upatedBookRecords] = await db.bookManagement.update(
+        getAttributes,
+        { where: { [Op.or]: { isbn13: oldISBN, isbn10: oldISBN } } }
+      );
+      if (upatedBookRecords >= 1) {
+        return {
+          message: 'Book updated successfully',
+        };
+      } else {
+        return {
+          message:
+            'Failed to update book,Invalid ISBN or book does not exist in database.',
+        };
+      }
+    } catch (error) {
+       throw error;
+    }
+  },
   updateBook: async ({
     ISBN,
     bookTitle,
