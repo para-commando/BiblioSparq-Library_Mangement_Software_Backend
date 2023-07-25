@@ -1,6 +1,16 @@
 const {bookManagementProcesses} = require('../Processes/process');
 const logger = require ('../../../shared/src/configurations/logger.configurations')
 module.exports.bookManagementProcessMappers = {
+  deleteBook: async ({ ISBN }) => {
+    try {
+      const response = await bookManagementProcesses.deleteBook({
+        ISBN: ISBN,
+      });
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
     createBook:async ({
         ISBN,
         bookTitle,

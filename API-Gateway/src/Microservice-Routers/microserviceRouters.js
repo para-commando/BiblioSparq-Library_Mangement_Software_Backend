@@ -1,6 +1,6 @@
 const app = require('../app');
 const {
-  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares
+  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares
 } = require('../Middlewares/Route-Middlewares/expressRateLimit.middleware');
 const Joi = require('joi');
 const {
@@ -19,6 +19,45 @@ const logger = require('../../../shared/src/configurations/logger.configurations
 // API specific Rate-limiting Middleware
 
 // ** book-management APIs   *******************
+
+app.delete(
+  '/routes/library-management-system/Sub-System/BookManagement/delete-book',
+  bookManageDeleteBookMiddlewares.expressRateLimiterMiddleware,
+  async (req, res, next) => {
+    try {
+       const schema = Joi.object({
+      ISBN: Joi.string()
+        .pattern(/^(?:(?:\d{9}[X\d])|(?:\d{13}))$/)
+        .required(),
+    });
+
+    const validatedData = schema.validate(req.body);
+    if (validatedData?.error) {
+      throw {
+        status: 400,
+        message: 'Bad Request',
+        error: validatedData?.error,
+      };
+    } else {
+      const { ISBN } = validatedData.value;
+
+        const response = await bookManagementProcessMappers.deleteBook({
+        ISBN: ISBN,
+      });
+        
+        logger.info("🚀 ~ file: microserviceRouters.js: ~ response:", response);
+        res.json({
+          response: response,
+        });
+      }
+    } catch (error) {
+      logger.error('This is an error message.');
+
+      res.status(400).json({ error: error });
+    }
+  }
+);
+
 
 app.post(
   '/routes/library-management-system/Sub-System/BookManagement/create-book',
