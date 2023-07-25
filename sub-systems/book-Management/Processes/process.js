@@ -2,6 +2,66 @@ const logger = require('../../../shared/src/configurations/logger.configurations
 const db = require('../../../shared/src/models/index');
 const { Op } = require('sequelize');
 module.exports.bookManagementProcesses = {
+  updateBook: async ({
+    ISBN,
+    bookTitle,
+    author,
+    subtitle,
+    genre,
+    yearOfPublication,
+    bookAvailabilityStatus,
+    originalNumberOfCopies,
+    numberOfCopiesLeft,
+  }) => {
+    try {
+      const book = await db.bookManagement.findAll({
+        attributes: [
+          'isbn13',
+          'isbn10',
+          'title',
+          'subtitle',
+          'authors',
+          'categories',
+          'publishedYear',
+          'status',
+          'originalNumberOfCopies',
+          'numberOfCopiesLeft',
+        ],
+        where: { [Op.or]: { isbn13: ISBN, isbn10: ISBN } },
+        raw: true,
+      });
+      if (book?.length) {
+        const [upatedBookRecords] = await db.bookManagement.update(
+          {
+            title: bookTitle,
+            subtitle: subtitle,
+            authors: author,
+            categories: genre,
+            publishedYear: yearOfPublication,
+            status: bookAvailabilityStatus,
+            originalNumberOfCopies: originalNumberOfCopies,
+            numberOfCopiesLeft: numberOfCopiesLeft,
+          },
+          { where: { [Op.or]: { isbn13: ISBN, isbn10: ISBN } } }
+        );
+        if (upatedBookRecords >= 1) {
+          return {
+            message: 'Book updated successfully',
+          };
+        } else {
+          return {
+            message: 'Failed to update book',
+          };
+        }
+      } else {
+        return {
+          message: 'Invalid ISBN or book does not exist in database.',
+        };
+      }
+    } catch (error) {
+       throw error;
+    }
+  },
   deleteBook: async ({ ISBN }) => {
     try {
       const numberOfRowsDeleted = await db.bookManagement.destroy({

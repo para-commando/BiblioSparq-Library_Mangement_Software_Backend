@@ -1,6 +1,6 @@
 const app = require('../app');
 const {
-  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares
+  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares, bookManageUpdateBookMiddlewares
 } = require('../Middlewares/Route-Middlewares/expressRateLimit.middleware');
 const Joi = require('joi');
 const {
@@ -19,6 +19,79 @@ const logger = require('../../../shared/src/configurations/logger.configurations
 // API specific Rate-limiting Middleware
 
 // ** book-management APIs   *******************
+
+app.put(
+  '/routes/library-management-system/Sub-System/BookManagement/update-book:ISBN',
+  bookManageUpdateBookMiddlewares.expressRateLimiterMiddleware,
+  async (req, res, next) => {
+    try {
+      const schema = Joi.object({
+        ISBN: Joi.string()
+          .pattern(/^(?:(?:\d{9}[X\d])|(?:\d{13}))$/)
+          .required(),
+        bookTitle: Joi.string().required(),
+        author: Joi.string().required(),
+        subtitle: Joi.string().default('No subtitle'),
+        genre: Joi.string().required(),
+        yearOfPublication: Joi.string().required(),
+        bookAvailabilityStatus: Joi.string()
+          .valid('available', 'unavailable')
+          .required(),
+        originalNumberOfCopies: Joi.number().integer().min(1).required(),
+        numberOfCopiesLeft: Joi.number()
+          .integer()
+          .min(0)
+          .max(Joi.ref('originalNumberOfCopies'))
+          .required(),
+      });
+      req.body.ISBN = req?.params?.ISBN;
+  
+      const validatedData = schema.validate(req.body);
+      if (validatedData?.error) {
+        throw {
+          status: 400,
+          message: 'Bad Request',
+          error: validatedData?.error,
+        };
+      } else {
+        const {
+          ISBN,
+          bookTitle,
+          author,
+          subtitle,
+          genre,
+          yearOfPublication,
+          bookAvailabilityStatus,
+          originalNumberOfCopies,
+          numberOfCopiesLeft,
+        } = validatedData.value;
+  
+
+        const response = await bookManagementProcessMappers.updateBook({
+          ISBN: ISBN,
+          bookTitle: bookTitle,
+          author: author,
+          genre: genre,
+          subtitle: subtitle,
+          yearOfPublication: yearOfPublication,
+          bookAvailabilityStatus: bookAvailabilityStatus,
+          originalNumberOfCopies: originalNumberOfCopies,
+          numberOfCopiesLeft: numberOfCopiesLeft,
+        });
+        
+        logger.info("🚀 ~ file: microserviceRouters.js: ~ response:", response);
+        res.json({
+          response: response,
+        });
+      }
+    } catch (error) {
+      logger.error('This is an error message.');
+
+      res.status(400).json({ error: error });
+    }
+  }
+);
+
 
 app.delete(
   '/routes/library-management-system/Sub-System/BookManagement/delete-book',
