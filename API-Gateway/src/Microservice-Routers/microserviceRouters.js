@@ -1,6 +1,6 @@
 const app = require('../app');
 const {
-  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares, bookManageUpdateBookMiddlewares
+  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares, bookManageUpdateBookMiddlewares, bookManageUpdateISBNMiddlewares
 } = require('../Middlewares/Route-Middlewares/expressRateLimit.middleware');
 const Joi = require('joi');
 const {
@@ -19,6 +19,49 @@ const logger = require('../../../shared/src/configurations/logger.configurations
 // API specific Rate-limiting Middleware
 
 // ** book-management APIs   *******************
+
+app.put(
+  '/routes/library-management-system/Sub-System/BookManagement/update-ISBN:oldISBN',
+  bookManageUpdateISBNMiddlewares.expressRateLimiterMiddleware,
+  async (req, res, next) => {
+    try {
+      const schema = Joi.object({
+        oldISBN: Joi.string()
+          .pattern(/^(?:(?:\d{9}[X\d])|(?:\d{13}))$/)
+          .required(),
+        newISBN: Joi.string()
+          .pattern(/^(?:(?:\d{9}[X\d])|(?:\d{13}))$/)
+          .required(),
+      });
+      const newISBN = req?.body?.newISBN;
+      const oldISBN = req?.params?.oldISBN;
+      const validatedData = schema.validate({ newISBN, oldISBN });
+      if (validatedData?.error) {
+        throw {
+          status: 400,
+          message: 'Bad Request',
+          error: validatedData?.error,
+        };
+      } else {
+        const { newISBN, oldISBN } = validatedData.value;
+
+        const response = await bookManagementProcessMappers.updateISBN({
+          newISBN: newISBN,
+          oldISBN: oldISBN,
+        });
+        
+        logger.info("🚀 ~ file: microserviceRouters.js: ~ response:", response);
+        res.json({
+          response: response,
+        });
+      }
+    } catch (error) {
+      logger.error('This is an error message.');
+
+      res.status(400).json({ error: error });
+    }
+  }
+);
 
 app.put(
   '/routes/library-management-system/Sub-System/BookManagement/update-book:ISBN',
