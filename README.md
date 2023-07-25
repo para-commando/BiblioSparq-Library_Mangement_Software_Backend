@@ -65,6 +65,8 @@ This API creates a new book in the library by accepting required arguments such 
 ### 2. `/delete-book`
 This API is used to delete a book by accepting its ISBN number as input
 
+### 3. `/update-book`
+This API Updates the book information for a given ISBN by accepting the ISBN in the path parameter and the updated book data in the request body.
 ## Features
 
 - **Microservices**: The architecture is based on microservices, where each service represents a specific business functionality or feature.
