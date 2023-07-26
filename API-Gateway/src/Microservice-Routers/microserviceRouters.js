@@ -1,6 +1,6 @@
 const app = require('../app');
 const {
-  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares, bookManageUpdateBookMiddlewares, bookManageUpdateISBNMiddlewares, bookManageListBooksMiddlewares, bookManageSearchBooksMiddlewares
+  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares, bookManageUpdateBookMiddlewares, bookManageUpdateISBNMiddlewares, bookManageListBooksMiddlewares, bookManageSearchBooksMiddlewares, bookManageBookAvailabilityMiddlewares
 } = require('../Middlewares/Route-Middlewares/expressRateLimit.middleware');
 const Joi = require('joi');
 const {
@@ -21,6 +21,44 @@ const { cleanObject } = require('../../../shared/src/utilities/genricUtilities')
 // API specific Rate-limiting Middleware
 
 // ** book-management APIs   *******************
+
+app.get(
+  '/routes/library-management-system/Sub-System/BookManagement/book-availability',
+  bookManageBookAvailabilityMiddlewares.expressRateLimiterMiddleware,
+  async (req, res, next) => {
+    try {
+      const schema = Joi.object({
+        ISBN: Joi.string()
+          .pattern(/^(?:(?:\d{9}[X\d])|(?:\d{13}))$/)
+          .required(),
+      });
+      const ISBN = req?.query.ISBN;
+      const validatedData = schema.validate({ ISBN: ISBN });
+      if (validatedData?.error) {
+        throw {
+          status: 400,
+          message: 'Bad Request',
+          error: validatedData?.error,
+        };
+      } else {
+        const { ISBN } = validatedData.value;
+
+        const response = await bookManagementProcessMappers.bookAvailability({
+          ISBN: ISBN,
+        });
+        
+        logger.info("🚀 ~ file: microserviceRouters.js: ~ response:", response);
+        res.json({
+          response: response,
+        });
+      }
+    } catch (error) {
+      logger.error('This is an error message.');
+
+      res.status(400).json({ error: error });
+    }
+  }
+);
 
 app.get(
   '/routes/library-management-system/Sub-System/BookManagement/search-books',
