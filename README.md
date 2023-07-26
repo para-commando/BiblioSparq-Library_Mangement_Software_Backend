@@ -70,6 +70,10 @@ This API Updates the book information for a given ISBN by accepting the ISBN in 
 
 ### 4. `/update-ISBN`
 This API is used to update ISBN number of a book by accepting its existing/old isbn number as input path parameter
+
+### 5. `/list-books`
+This API retrieves a list of books based on optional filters such as author name, title, genre, year of publication, availability status, book subtitle, book added date, and ISBN number. The API supports pagination through the use of the numberOfRecordsPerPage and numberOfPagesToBeSkipped
+
 ## Features
 
 - **Microservices**: The architecture is based on microservices, where each service represents a specific business functionality or feature.
