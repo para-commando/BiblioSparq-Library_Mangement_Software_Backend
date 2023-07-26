@@ -22,7 +22,7 @@ const { cleanObject } = require('../../../shared/src/utilities/genricUtilities')
 
 // ** book-management APIs   *******************
 
-app.put(
+app.get(
   '/routes/library-management-system/Sub-System/BookManagement/list-books',
   bookManageListBooksMiddlewares.expressRateLimiterMiddleware,
   async (req, res, next) => {
