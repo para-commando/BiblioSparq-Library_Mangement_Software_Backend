@@ -6,6 +6,16 @@ const {
   getDateFilterValuesForBooKAddedDate,
 } = require('../../../shared/src/utilities/');
 module.exports.bookManagementProcessMappers = {
+  bookAvailability : async ({ ISBN }) => {
+    try {
+      const response = await bookManagementProcesses.bookAvailability({
+        ISBN: ISBN,
+      });
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
   searchBooks : async ({
     numberOfRecordsPerPage,
     numberOfPagesToBeSkipped,
