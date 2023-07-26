@@ -2,6 +2,36 @@ const logger = require('../../../shared/src/configurations/logger.configurations
 const db = require('../../../shared/src/models/index');
 const { Op } = require('sequelize');
 module.exports.bookManagementProcesses = {
+  bookAvailability: async ({ ISBN }) => {
+    try {
+      const bookStatus = await db.bookManagement.findOne({
+        attributes: [
+          'status',
+          ['originalNumberOfCopies', 'totalCopies'],
+          ['numberOfCopiesLeft', 'copiesLeft'],
+        ],
+        where: { [Op.or]: { isbn13: ISBN, isbn10: ISBN } },
+        raw: true,
+      });
+      if (
+        bookStatus &&
+        bookStatus.hasOwnProperty('status') &&
+        (bookStatus.status === 'available' || bookStatus.status === 'issued')
+      ) {
+        return {
+          status: bookStatus.status,
+          totalCopies: bookStatus?.totalCopies,
+          copiesLeft: bookStatus?.copiesLeft,
+        };
+      } else {
+        return {
+          message: 'Invalid ISBN or book does not exist in database.',
+        };
+      }
+    } catch (error) {
+      throw error;
+    }
+  },
   searchBooks: async ({
     numberOfRecordsPerPage,
     numberOfPagesToBeSkipped,
