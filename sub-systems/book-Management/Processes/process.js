@@ -2,6 +2,80 @@ const logger = require('../../../shared/src/configurations/logger.configurations
 const db = require('../../../shared/src/models/index');
 const { Op } = require('sequelize');
 module.exports.bookManagementProcesses = {
+  listBooks: async ({
+    numberOfRecordsPerPage,
+    numberOfPagesToBeSkipped,
+    filter,
+  }) => {
+    try {
+      let filterObject = {};
+      filterObject = {
+        ...filter,
+      };
+      let booksFound;
+      let filterWithDbColumnMappedKeys = {};
+
+      for (const [key, value] of Object.entries(filterObject)) {
+        if (book_management_column_Mapping?.[key]) {
+          filterWithDbColumnMappedKeys[book_management_column_Mapping[key]] =
+            value;
+        }
+      }
+
+      const offsetValue =
+        numberOfPagesToBeSkipped * numberOfRecordsPerPage -
+        numberOfRecordsPerPage;
+      if (Object.keys(filterWithDbColumnMappedKeys).length) {
+        booksFound = await db.bookManagement.findAll({
+          attributes: [
+            'isbn13',
+            'isbn10',
+            'title',
+            'subtitle',
+            'authors',
+            'categories',
+            'publishedYear',
+            'status',
+            'originalNumberOfCopies',
+            'numberOfCopiesLeft',
+          ],
+          where: filterWithDbColumnMappedKeys,
+          limit: numberOfRecordsPerPage,
+          offset: offsetValue,
+          raw: true,
+        });
+      } else {
+        booksFound = await db.bookManagement.findAll({
+          attributes: [
+            'isbn13',
+            'isbn10',
+            'title',
+            'subtitle',
+            'authors',
+            'categories',
+            'publishedYear',
+            'status',
+            'originalNumberOfCopies',
+            'numberOfCopiesLeft',
+          ],
+          limit: numberOfRecordsPerPage,
+          offset: offsetValue,
+          raw: true,
+        });
+      }
+      if (booksFound && booksFound.length) {
+        return {
+          books: booksFound,
+        };
+      } else {
+        return {
+          message: 'Invalid book data or book does not exist in database.',
+        };
+      }
+    } catch (error) {
+       throw error;
+    }
+  } ,
   updateISBN: async ({ oldISBN, newISBN }) => {
     try {
       const getAttributes = {};
