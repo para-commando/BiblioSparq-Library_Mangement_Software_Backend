@@ -1,6 +1,6 @@
 const app = require('../app');
 const {
-  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares, bookManageUpdateBookMiddlewares, bookManageUpdateISBNMiddlewares, bookManageListBooksMiddlewares
+  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares, bookManageUpdateBookMiddlewares, bookManageUpdateISBNMiddlewares, bookManageListBooksMiddlewares, bookManageSearchBooksMiddlewares
 } = require('../Middlewares/Route-Middlewares/expressRateLimit.middleware');
 const Joi = require('joi');
 const {
@@ -21,6 +21,71 @@ const { cleanObject } = require('../../../shared/src/utilities/genricUtilities')
 // API specific Rate-limiting Middleware
 
 // ** book-management APIs   *******************
+
+app.get(
+  '/routes/library-management-system/Sub-System/BookManagement/search-books',
+  bookManageSearchBooksMiddlewares.expressRateLimiterMiddleware,
+  async (req, res, next) => {
+    try {
+      const schema = Joi.object({
+        numberOfRecordsPerPage: Joi.number().integer().min(1).max(100),
+        numberOfPagesToBeSkipped: Joi.number().integer().min(0),
+        bookTitle: Joi.string().trim().min(1).max(255),
+      });
+      const numberOfRecordsPerPage =
+        req?.query.numberOfRecordsPerPage;
+      const numberOfPagesToBeSkipped =
+        req?.query.numberOfPagesToBeSkipped;
+      const bookTitle = req?.query.bookTitle;
+      let filter = req?.query.filter;
+  
+      //     In the regular expression used in the replace() method, $1 is a reference to the first matched capturing group in the regular expression pattern.
+  
+      // In this case, the regular expression ([a-zA-Z0-9]+?): matches any sequence of one or more letters or digits followed by a colon, and captures the sequence of letters or digits before the colon as a group. This group is referenced using $1 in the replacement string.
+  
+      // By wrapping the keys in quotes in the replacement string, we ensure that the resulting string is in a valid JSON format, since JSON requires object keys to be enclosed in double quotes.
+  
+      // So in short, $1 in this context refers to the captured sequence of letters or digits before the colon in the regular expression pattern.
+      let filterCleaned = {};
+      if (filter && Object.keys(filter).length) {
+        filter = JSON.parse(filter.replace(/([a-zA-Z0-9]+?):/g, '"$1":'));
+        filterCleaned = cleanObject(filter);
+      }
+  
+      const validatedData = schema.validate({
+        numberOfRecordsPerPage: numberOfRecordsPerPage,
+        numberOfPagesToBeSkipped: numberOfPagesToBeSkipped,
+        bookTitle: bookTitle,
+      });
+      if (validatedData?.error) {
+        throw {
+          status: 400,
+          message: 'Bad Request',
+          error: validatedData?.error,
+        };
+      } else {
+        const { numberOfRecordsPerPage, numberOfPagesToBeSkipped, bookTitle } =
+          validatedData.value;
+
+        const response = await bookManagementProcessMappers.searchBooks({
+          numberOfRecordsPerPage: numberOfRecordsPerPage,
+          numberOfPagesToBeSkipped: numberOfPagesToBeSkipped,
+          bookTitle: bookTitle,
+          filter: filterCleaned,
+        });
+        
+        logger.info("🚀 ~ file: microserviceRouters.js: ~ response:", response);
+        res.json({
+          response: response,
+        });
+      }
+    } catch (error) {
+      logger.error('This is an error message.');
+
+      res.status(400).json({ error: error });
+    }
+  }
+);
 
 app.get(
   '/routes/library-management-system/Sub-System/BookManagement/list-books',
