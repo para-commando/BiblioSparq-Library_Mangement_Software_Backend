@@ -77,6 +77,9 @@ This API retrieves a list of books based on optional filters such as author name
 ### 6. `/search-books`
 This API is used to search a book mainly by its title along with optional advanced filters.Optional advanced filters for the search results. The filter parameter should be a list of JSON objects,where each object contains filter criteria for a specific field. Available fields are: `authorName`, `genre`, `yearOfPublication`, `availabilityStatus`, `ISBN`, `bookSubtitle`, `bookAddedDate`. The `yearOfPublication` and `bookAddedDate` fields can take additional filter criteria using the following keys: `between`, `before`, `on`, `after`. The `bookAddedDate` field can also take additional filter criteria using the following keys: `lastSevenDays`, `thisMonth`, `thisQuarter`, `thisYear`, `lastQuarter`, `lastSixMonths`, `LastXmonthsBack`. The `between`, `before`, and `after` keys should have a list of two integers representing the range of years to search for. The `on` key should have a list of integers representing the specific year(s) to search for. The `lastSevenDays`, `thisMonth`, `thisQuarter`, `thisYear`, `lastQuarter`, and `lastSixMonths` keys should have a value of `1` if the corresponding time frame is to be included in the search and `0` otherwise. The `LastXmonthsBack` key should have a value of an integer representing the number of months to search for. The `authorName`, `genre`, `availabilityStatus`, ISBN`, and `bookSubtitle` fields should have a value of the filter criteria to search for. If a field is not included
 in the filter criteria, then it will not be filtered on.
+
+### 7. `/book-availability`
+'This API outputs whether a book is available or not along with information on the number of copies
 ## Features
 
 - **Microservices**: The architecture is based on microservices, where each service represents a specific business functionality or feature.
