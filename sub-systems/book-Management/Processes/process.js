@@ -2,6 +2,66 @@ const logger = require('../../../shared/src/configurations/logger.configurations
 const db = require('../../../shared/src/models/index');
 const { Op } = require('sequelize');
 module.exports.bookManagementProcesses = {
+  searchBooks: async ({
+    numberOfRecordsPerPage,
+    numberOfPagesToBeSkipped,
+    bookTitle,
+    filter,
+  }) => {
+    try {
+      const bookName = `%${bookTitle}%`;
+      let filterObject = {};
+      filterObject = {
+        title: {
+          [Op.like]: bookName,
+        },
+        ...filter,
+      };
+      let filterWithDbColumnMappedKeys = {};
+
+      for (const [key, value] of Object.entries(filterObject)) {
+        if (book_management_column_Mapping?.[key]) {
+          filterWithDbColumnMappedKeys[book_management_column_Mapping[key]] =
+            value;
+        }
+      }
+
+      const offsetValue =
+        numberOfPagesToBeSkipped * numberOfRecordsPerPage -
+        numberOfRecordsPerPage;
+
+      const booksFound = await db.bookManagement.findAll({
+        attributes: [
+          'isbn13',
+          'isbn10',
+          'title',
+          'subtitle',
+          'authors',
+          'categories',
+          'publishedYear',
+          'status',
+          'originalNumberOfCopies',
+          'numberOfCopiesLeft',
+        ],
+        where: filterWithDbColumnMappedKeys,
+        limit: numberOfRecordsPerPage,
+        offset: offsetValue,
+        raw: true,
+      });
+
+      if (booksFound && booksFound.length) {
+        return {
+          books: booksFound,
+        };
+      } else {
+        return {
+          message: 'Invalid book data or book does not exist in database.',
+        };
+      }
+    } catch (error) {
+       throw error;
+    }
+  },
   listBooks: async ({
     numberOfRecordsPerPage,
     numberOfPagesToBeSkipped,

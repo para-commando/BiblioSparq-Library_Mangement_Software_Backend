@@ -6,6 +6,56 @@ const {
   getDateFilterValuesForBooKAddedDate,
 } = require('../../../shared/src/utilities/');
 module.exports.bookManagementProcessMappers = {
+  searchBooks : async ({
+    numberOfRecordsPerPage,
+    numberOfPagesToBeSkipped,
+    bookTitle,
+    filter,
+  }) => {
+    try {
+      let holdISBN;
+      if (filter?.ISBN?.length == 10) {
+        holdISBN = filter.ISBN;
+        delete filter.ISBN;
+        filter.ISBN10 = holdISBN;
+      } else if (filter?.ISBN?.length == 13) {
+        holdISBN = filter.ISBN;
+        delete filter.ISBN;
+        filter.ISBN13 = holdISBN;
+      }
+      if (filter.hasOwnProperty('yearOfPublication')) {
+        filter.yearOfPublication = getPropertiesWithValidValues(
+          filter.yearOfPublication
+        );
+        // array destructing to extract the concerned key
+        const [filterCondition, ...rest] = Object.keys(filter.yearOfPublication);
+        filter.yearOfPublication = getDateFilterValuesForYearOfPublication({
+          key: filterCondition,
+          startYear: filter.yearOfPublication[filterCondition][0],
+          endYear: filter.yearOfPublication[filterCondition][1],
+        });
+      }
+      if (filter.hasOwnProperty('bookAddedDate')) {
+        filter.bookAddedDate = getPropertiesWithValidValues(filter.bookAddedDate);
+        const [filterCondition, ...rest] = Object.keys(filter.bookAddedDate);
+        filter.bookAddedDate = getDateFilterValuesForBooKAddedDate({
+          key: filterCondition,
+          startYear: filter.bookAddedDate[filterCondition][0],
+          endYear: filter.bookAddedDate[filterCondition][1],
+        });
+      }
+  
+      const response = await bookManagementProcesses.searchBooks({
+        numberOfRecordsPerPage: numberOfRecordsPerPage,
+        numberOfPagesToBeSkipped: numberOfPagesToBeSkipped,
+        bookTitle: bookTitle,
+        filter: filter,
+      });
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
   listBooks : async ({
     numberOfRecordsPerPage,
     numberOfPagesToBeSkipped,
