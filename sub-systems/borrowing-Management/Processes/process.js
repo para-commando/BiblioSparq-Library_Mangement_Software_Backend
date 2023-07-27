@@ -3,6 +3,119 @@ const db = require('../../../shared/src/models/index');
 const { Op } = require('sequelize');
 
 module.exports.borrowingManagementProcesses = {
+    getBorrowedBooksWithUserInfo: async ({ filterCleaned }) => {
+        try {
+          const subWhereClause = {
+            returned_date: {
+              [Op.is]: null,
+            },
+          };
+          const whereClause = { [Op.and]: subWhereClause };
+          const filterColumnName = Object.keys(filterCleaned);
+          const todaysDate = new Date(new Date().getTime()).toISOString();
+          if (filterColumnName?.length) {
+            if (filterColumnName[0] === 'overdue') {
+              subWhereClause.due_date = {
+                [Op.lt]: todaysDate,
+              };
+            } else if (filterColumnName[0] === 'dueInXDays') {
+              const NoOfDaysBack = Number(filterCleaned['dueInXDays']);
+              const today = new Date();
+              const xDaysAfter = new Date(
+                today.getTime() + NoOfDaysBack * 24 * 60 * 60 * 1000
+              );
+              xDaysAfter.setHours(0, 0, 0, 0);
+    
+             
+    
+              // Set time to start of day (00:00:00)
+              const startOfDay = new Date(
+                xDaysAfter.getFullYear(),
+                xDaysAfter.getMonth(),
+                xDaysAfter.getDate(),
+                0,
+                0,
+                0
+              ).toISOString();
+    
+              // Set time to end of day (23:59:59)
+              const endOfDay = new Date(
+                xDaysAfter.getFullYear(),
+                xDaysAfter.getMonth(),
+                xDaysAfter.getDate(),
+                23,
+                59,
+                59
+              ).toISOString();
+    
+              subWhereClause.due_date = {
+                [Op.between]: [startOfDay, endOfDay],
+              };
+            }
+          }
+    
+          const getBorrowedUserAndBooks = await db.borrowingManagement.findAll({
+            attributes: [
+              [db.sequelize.literal('"signUp"."id"'), 'borrower_id'],
+              [
+                db.sequelize.literal('"signUp"."first_name"'),
+                'borrower_first_name',
+              ],
+              [db.sequelize.literal('"signUp"."last_name"'), 'borrower_last_name'],
+              [db.sequelize.literal('"signUp"."gender"'), 'borrower_gender'],
+              [db.sequelize.literal('"signUp"."city"'), 'borrower_city'],
+              [db.sequelize.literal('"signUp"."email"'), 'borrower_email'],
+              [db.sequelize.literal('"signUp"."phone_no"'), 'borrower_phone_no'],
+              [db.sequelize.literal('"bookManagement"."id"'), 'book_id'],
+              [db.sequelize.literal('"bookManagement"."isbn10"'), 'book_isbn10'],
+              [db.sequelize.literal('"bookManagement"."isbn13"'), 'book_isbn13'],
+              [db.sequelize.literal('"bookManagement"."title"'), 'book_title'],
+              [db.sequelize.literal('"bookManagement"."authors"'), 'book_authors'],
+              [
+                db.sequelize.literal('"bookManagement"."categories"'),
+                'book_categories',
+              ],
+              [
+                db.sequelize.literal('"bookManagement"."originalNumberOfCopies"'),
+                'book_originalNumberOfCopies',
+              ],
+              [
+                db.sequelize.literal('"bookManagement"."numberOfCopiesLeft"'),
+                'book_numberOfCopiesLeft',
+              ],
+              [
+                db.sequelize.literal('"bookManagement"."publishedYear"'),
+                'book_publishedYear',
+              ],
+            ],
+            include: [
+              {
+                model: db.signUp,
+                attributes: [],
+              },
+              {
+                model: db.bookManagement,
+                attributes: [],
+              },
+            ],
+            where: whereClause,
+          });
+           
+    
+          if (getBorrowedUserAndBooks?.length) {
+            return {
+              message: 'fetched data successfully',
+              data: getBorrowedUserAndBooks,
+            };
+          } else {
+            return {
+              message: 'No books are due',
+            };
+          }
+        } catch (error) {
+           throw error;
+        }
+      },
     transactBook: async ({ bookISBN, contactNumber, borrowOrReturn }) => {
         try {
           const getAttributes = [];
