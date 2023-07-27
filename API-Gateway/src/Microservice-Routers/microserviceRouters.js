@@ -28,7 +28,7 @@ app.get(
   borrowingManageListBorrowedBooksMiddlewares.expressRateLimiterMiddleware,
   async (req, res, next) => {
     try {
-      let filter = req?.params?.filter;
+      let filter = req?.query?.filter;
 
       let filterCleaned = {};
       if (filter && Object.keys(filter).length) {
