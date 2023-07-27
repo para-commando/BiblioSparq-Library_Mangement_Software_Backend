@@ -1,6 +1,6 @@
 const app = require('../app');
 const {
-  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares, bookManageUpdateBookMiddlewares, bookManageUpdateISBNMiddlewares, bookManageListBooksMiddlewares, bookManageSearchBooksMiddlewares, bookManageBookAvailabilityMiddlewares
+  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares, bookManageUpdateBookMiddlewares, bookManageUpdateISBNMiddlewares, bookManageListBooksMiddlewares, bookManageSearchBooksMiddlewares, bookManageBookAvailabilityMiddlewares,borrowingManageTransactBookMiddlewares
 } = require('../Middlewares/Route-Middlewares/expressRateLimit.middleware');
 const Joi = require('joi');
 const {
@@ -19,6 +19,51 @@ const logger = require('../../../shared/src/configurations/logger.configurations
 const { cleanObject } = require('../../../shared/src/utilities/genricUtilities');
 
 // API specific Rate-limiting Middleware
+// ** borrowing-management APIs   *******************
+
+app.post(
+  '/routes/library-management-system/Sub-System/BorrowingManagement/transact-book/:borrowOrReturn',
+  borrowingManageTransactBookMiddlewares.expressRateLimiterMiddleware,
+  async (req, res, next) => {
+    try {
+      const schema = Joi.object({
+        bookISBN: Joi.string()
+          .pattern(/^(?:(?:\d{9}[X\d])|(?:\d{13}))$/)
+          .required(),
+        contactNumber: Joi.string().pattern(new RegExp('^[0-9]{10}$')).required(),
+      });
+      const borrowOrReturn = req?.params?.borrowOrReturn;
+  
+      const validatedData = schema.validate(req.body);
+      if (validatedData?.error) {
+        throw {
+          status: 400,
+          message: 'Bad Request',
+          error: validatedData?.error,
+        };
+      } else {
+        const { bookISBN, contactNumber } = validatedData.value;
+
+        const response = await borrowingManagementProcessMappers.transactBook({
+          bookISBN: bookISBN,
+          contactNumber: contactNumber,
+          borrowOrReturn: borrowOrReturn,
+        });
+        
+        logger.info("🚀 ~ file: microserviceRouters.js: ~ response:", response);
+        res.json({
+          response: response,
+        });
+      }
+    } catch (error) {
+      logger.error('This is an error message.');
+
+      res.status(400).json({ error: error });
+    }
+  }
+);
+
+
 
 // ** book-management APIs   *******************
 
