@@ -80,6 +80,13 @@ in the filter criteria, then it will not be filtered on.
 
 ### 7. `/book-availability`
 'This API outputs whether a book is available or not along with information on the number of copies
+
+### Borrowing-Management subsystem
+
+This Subsystem contains APIs for book borrowing Management, The base URL for all the endpoints in this subsystem is `/BorrowingManagement`, the details of the endPoints in this are:
+
+### 1. `/transact-book/:borrowOrReturn`
+This API reserves a book for a user or returns a reserved book by accepting the user\'s contact number and the book\'s ISBN number, along with an additional parameter to differentiate between reserving and returning a book.
 ## Features
 
 - **Microservices**: The architecture is based on microservices, where each service represents a specific business functionality or feature.
