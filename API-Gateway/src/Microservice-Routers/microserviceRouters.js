@@ -1,6 +1,6 @@
 const app = require('../app');
 const {
-  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares, bookManageUpdateBookMiddlewares, bookManageUpdateISBNMiddlewares, bookManageListBooksMiddlewares, bookManageSearchBooksMiddlewares, bookManageBookAvailabilityMiddlewares,borrowingManageTransactBookMiddlewares
+  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares, bookManageUpdateBookMiddlewares, bookManageUpdateISBNMiddlewares, bookManageListBooksMiddlewares, bookManageSearchBooksMiddlewares, bookManageBookAvailabilityMiddlewares,borrowingManageTransactBookMiddlewares,borrowingManageListBorrowedBooksMiddlewares
 } = require('../Middlewares/Route-Middlewares/expressRateLimit.middleware');
 const Joi = require('joi');
 const {
@@ -19,7 +19,38 @@ const logger = require('../../../shared/src/configurations/logger.configurations
 const { cleanObject } = require('../../../shared/src/utilities/genricUtilities');
 
 // API specific Rate-limiting Middleware
+
+
 // ** borrowing-management APIs   *******************
+
+app.get(
+  '/routes/library-management-system/Sub-System/BorrowingManagement/list/all-borrowed-books',
+  borrowingManageListBorrowedBooksMiddlewares.expressRateLimiterMiddleware,
+  async (req, res, next) => {
+    try {
+      let filter = req?.params?.filter;
+
+      let filterCleaned = {};
+      if (filter && Object.keys(filter).length) {
+        filter = JSON.parse(filter.replace(/([a-zA-Z0-9]+?):/g, '"$1":'));
+        filterCleaned = cleanObject(filter);
+      }
+
+        const response = await borrowingManagementProcessMappers.getBorrowedBooksWithUserInfo({
+          filterCleaned: filterCleaned,
+        });
+        
+        logger.info("🚀 ~ file: microserviceRouters.js: ~ response:", response);
+        res.json({
+          response: response,
+        });
+     } catch (error) {
+      logger.error('This is an error message.');
+
+      res.status(400).json({ error: error });
+    }
+  }
+);
 
 app.post(
   '/routes/library-management-system/Sub-System/BorrowingManagement/transact-book/:borrowOrReturn',
