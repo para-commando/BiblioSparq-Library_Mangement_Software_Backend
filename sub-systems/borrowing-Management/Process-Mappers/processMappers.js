@@ -3,6 +3,16 @@ const logger = require ('../../../shared/src/configurations/logger.configuration
 const {borrowingManagementProcesses} = require('../Processes/process');
 
 module.exports.borrowingManagementProcessMappers = {
+    getBorrowedBooksWithUserInfo : async ({ filterCleaned }) => {
+        try {
+          const response = await borrowingManagementProcesses.getBorrowedBooksWithUserInfo({
+            filterCleaned: filterCleaned,
+          });
+          return response;
+        } catch (error) {
+          throw error;
+        }
+      },
     transactBook : async ({
         bookISBN,
         contactNumber,
