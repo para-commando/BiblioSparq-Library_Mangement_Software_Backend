@@ -94,6 +94,12 @@ This API lists all the borrowed books with their borrowed date, due date, along 
 ### 3. `/user-specific-history`
 This API retrieves the borrowing history of a user by taking their contact number as input along with an optional filter to narrow down the search results.
 
+### Notification-Management subsystem
+
+This Subsystem contains APIs for notification Management, The base URL for all the endpoints in this subsystem is `/NotificationManagement`, the details of the endPoints in this are:
+### 1. `/notify-user`
+This API is used to notify a user via both email and SMS by accepting a custom message as input. The API accepts a message and a phone number as input. It sends the message to the user via SMS using the Twilio API and to the user's email via Sendinblue email service
+
 ## Features
 
 - **Microservices**: The architecture is based on microservices, where each service represents a specific business functionality or feature.
