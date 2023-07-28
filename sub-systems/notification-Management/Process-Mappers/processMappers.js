@@ -1,16 +1,15 @@
-const {processes} = require('../Processes/process');
+const {notificationManagementProcesses} = require('../Processes/process');
 const logger = require ('../../../shared/src/configurations/logger.configurations')
 module.exports.notificationManagementProcessMappers = {
-    process1: async (asd)=>{
+    notifyUserViaMailAndSmsUser: async ({ message, phone_no }) => {
         try {
-            logger.info(`This is the function argument : ${asd}`);
-            
-            logger.warn('This is a warning message.');
-       const processResponse= await processes.coreProcess1(asd)
-       return processResponse;
+          const response = await notificationManagementProcesses.notifyUserViaMailAndSmsUser({
+            phone_no: phone_no,
+            message: message,
+          });
+          return response;
+        } catch (error) {
+          throw error;
         }
-        catch (err) {
-            logger.error('This is an error object: ',err);
-        }
-    },
+      },
 }

@@ -1,6 +1,6 @@
 const app = require('../app');
 const {
-  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares, bookManageUpdateBookMiddlewares, bookManageUpdateISBNMiddlewares, bookManageListBooksMiddlewares, bookManageSearchBooksMiddlewares, bookManageBookAvailabilityMiddlewares,borrowingManageTransactBookMiddlewares,borrowingManageListBorrowedBooksMiddlewares, borrowingManageUserHistoryMiddlewares
+  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares, bookManageUpdateBookMiddlewares, bookManageUpdateISBNMiddlewares, bookManageListBooksMiddlewares, bookManageSearchBooksMiddlewares, bookManageBookAvailabilityMiddlewares,borrowingManageTransactBookMiddlewares,borrowingManageListBorrowedBooksMiddlewares, borrowingManageUserHistoryMiddlewares, notifManageNotifyUserMiddlewares
 } = require('../Middlewares/Route-Middlewares/expressRateLimit.middleware');
 const Joi = require('joi');
 const {
@@ -19,7 +19,43 @@ const logger = require('../../../shared/src/configurations/logger.configurations
 const { cleanObject } = require('../../../shared/src/utilities/genricUtilities');
 
 // API specific Rate-limiting Middleware
+// ** notification-management APIs   *******************
+app.get(
+  '/routes/library-management-system/Sub-System/NotificationManagement/notify-user',
+  notifManageNotifyUserMiddlewares.expressRateLimiterMiddleware,
+  async (req, res, next) => {
+    try {
+      const schema = Joi.object({
+        message: Joi.string().required(),
+        phone_no: Joi.string().pattern(new RegExp('^[0-9]{10}$')).required(),
+      });
+  
+      const validatedData = schema.validate(req.body);
+      if (validatedData?.error) {
+        throw {
+          status: 400,
+          message: 'Bad Request',
+          error: validatedData?.error,
+        };
+      } else {
+        const { message, phone_no } = validatedData.value;
 
+        const response = await notificationManagementProcessMappers.notifyUserViaMailAndSmsUser({
+          phone_no: phone_no,
+          message: message,
+        });
+        
+        logger.info("🚀 ~ file: microserviceRouters.js: ~ response:", response);
+        res.json({
+          response: response,
+        });
+      }
+     } catch (error) {
+      logger.error('This is an error message.');
+      res.status(400).json({ error: error });
+    }
+  }
+);
 
 // ** borrowing-management APIs   *******************
 
