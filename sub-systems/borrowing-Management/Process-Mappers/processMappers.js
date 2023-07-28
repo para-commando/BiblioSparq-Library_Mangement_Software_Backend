@@ -1,8 +1,18 @@
-const {processes} = require('../Processes/process');
-const logger = require ('../../../shared/src/configurations/logger.configurations')
+ const logger = require ('../../../shared/src/configurations/logger.configurations')
 const {borrowingManagementProcesses} = require('../Processes/process');
 
 module.exports.borrowingManagementProcessMappers = {
+  getUserBorrowHistory : async ({ phoneNo, filterCleaned }) => {
+    try {
+      const response = await borrowingManagementProcesses.getUserBorrowHistory({
+        phoneNo: phoneNo,
+        filterCleaned: filterCleaned,
+      });
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
     getBorrowedBooksWithUserInfo : async ({ filterCleaned }) => {
         try {
           const response = await borrowingManagementProcesses.getBorrowedBooksWithUserInfo({
