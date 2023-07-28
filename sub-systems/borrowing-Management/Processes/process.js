@@ -3,6 +3,106 @@ const db = require('../../../shared/src/models/index');
 const { Op } = require('sequelize');
 
 module.exports.borrowingManagementProcesses = {
+  getUserBorrowHistory: async ({ phoneNo, filterCleaned }) => {
+    try {
+      const subWhereClause = {};
+      const whereClause = { [Op.and]: subWhereClause };
+      const filterColumnName = Object.keys(filterCleaned);
+      const todaysDate = new Date(new Date().getTime()).toISOString();
+      if (filterColumnName?.length) {
+        if (filterColumnName[0] === 'overdue') {
+          subWhereClause.due_date = {
+            [Op.lt]: todaysDate,
+          };
+          subWhereClause.returned_date = {
+            [Op.is]: null,
+          };
+        } else if (filterColumnName[0] === 'dueInXDays') {
+          const NoOfDaysBack = Number(filterCleaned['dueInXDays']);
+          const today = new Date();
+          const xDaysAfter = new Date(
+            today.getTime() + NoOfDaysBack * 24 * 60 * 60 * 1000
+          );
+          xDaysAfter.setHours(0, 0, 0, 0);
+
+          
+
+          // Set time to start of day (00:00:00)
+          const startOfDay = new Date(
+            xDaysAfter.getFullYear(),
+            xDaysAfter.getMonth(),
+            xDaysAfter.getDate(),
+            0,
+            0,
+            0
+          ).toISOString();
+
+          // Set time to end of day (23:59:59)
+          const endOfDay = new Date(
+            xDaysAfter.getFullYear(),
+            xDaysAfter.getMonth(),
+            xDaysAfter.getDate(),
+            23,
+            59,
+            59
+          ).toISOString();
+
+          subWhereClause.due_date = {
+            [Op.between]: [startOfDay, endOfDay],
+          };
+          subWhereClause.returned_date = {
+            [Op.is]: null,
+          };
+        }
+      }
+
+      const getBorrowedBooks = await db.borrowingManagement.findAll({
+        attributes: [
+          [db.sequelize.literal('"borrowingManagement"."due_date"'), 'dueDate'],
+          [
+            db.sequelize.literal('"borrowingManagement"."borrowed_date"'),
+            'borrowedDate',
+          ],
+          [
+            db.sequelize.literal('"borrowingManagement"."returned_date"'),
+            'returnedDate',
+          ],
+          [
+            db.sequelize.literal('"borrowingManagement"."book_isbn"'),
+            'bookISBN',
+          ],
+          [db.sequelize.literal('"bookManagement"."title"'), 'book_title'],
+        ],
+        include: [
+          {
+            model: db.signUp,
+            attributes: [],
+            where: {
+              phone_no: phoneNo,
+            },
+          },
+          {
+            model: db.bookManagement,
+            attributes: [],
+          },
+        ],
+        where: whereClause,
+      });
+       
+      if (getBorrowedBooks?.length > 0) {
+        return {
+          message: 'Book updated successfully',
+          data: getBorrowedBooks,
+        };
+      } else {
+        return {
+          message: 'No user history found.',
+        };
+      }
+    } catch (error) {
+       throw error;
+    }
+  },
     getBorrowedBooksWithUserInfo: async ({ filterCleaned }) => {
         try {
           const subWhereClause = {
