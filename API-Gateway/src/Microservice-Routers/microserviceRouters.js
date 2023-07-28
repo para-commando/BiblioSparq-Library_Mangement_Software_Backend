@@ -1,6 +1,6 @@
 const app = require('../app');
 const {
-  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares, bookManageUpdateBookMiddlewares, bookManageUpdateISBNMiddlewares, bookManageListBooksMiddlewares, bookManageSearchBooksMiddlewares, bookManageBookAvailabilityMiddlewares,borrowingManageTransactBookMiddlewares,borrowingManageListBorrowedBooksMiddlewares
+  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares, bookManageUpdateBookMiddlewares, bookManageUpdateISBNMiddlewares, bookManageListBooksMiddlewares, bookManageSearchBooksMiddlewares, bookManageBookAvailabilityMiddlewares,borrowingManageTransactBookMiddlewares,borrowingManageListBorrowedBooksMiddlewares, borrowingManageUserHistoryMiddlewares
 } = require('../Middlewares/Route-Middlewares/expressRateLimit.middleware');
 const Joi = require('joi');
 const {
@@ -23,6 +23,35 @@ const { cleanObject } = require('../../../shared/src/utilities/genricUtilities')
 
 // ** borrowing-management APIs   *******************
 
+app.get(
+  '/routes/library-management-system/Sub-System/BorrowingManagement/user-specific-history',
+  borrowingManageUserHistoryMiddlewares.expressRateLimiterMiddleware,
+  async (req, res, next) => {
+    try {
+      const phoneNo = req?.query?.phoneNo;
+      let filter = req?.query?.filter;
+  
+      let filterCleaned = {};
+      if (filter && Object.keys(filter).length) {
+        filter = JSON.parse(filter.replace(/([a-zA-Z0-9]+?):/g, '"$1":'));
+        filterCleaned = cleanObject(filter);
+      }
+
+        const response = await borrowingManagementProcessMappers.getUserBorrowHistory({
+          phoneNo: phoneNo,
+          filterCleaned: filterCleaned,
+        });
+        
+        logger.info("🚀 ~ file: microserviceRouters.js: ~ response:", response);
+        res.json({
+          response: response,
+        });
+     } catch (error) {
+      logger.error('This is an error message.');
+      res.status(400).json({ error: error });
+    }
+  }
+);
 app.get(
   '/routes/library-management-system/Sub-System/BorrowingManagement/list/all-borrowed-books',
   borrowingManageListBorrowedBooksMiddlewares.expressRateLimiterMiddleware,
