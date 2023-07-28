@@ -87,6 +87,13 @@ This Subsystem contains APIs for book borrowing Management, The base URL for all
 
 ### 1. `/transact-book/:borrowOrReturn`
 This API reserves a book for a user or returns a reserved book by accepting the user\'s contact number and the book\'s ISBN number, along with an additional parameter to differentiate between reserving and returning a book.
+
+### 2. `/all-borrowed-books`
+This API lists all the borrowed books with their borrowed date, due date, along with the information of the user who borrowed it. An optional filter can be applied to get specific books based on their due date. Valid options for the filter are: overdue, dueInXDays:2, dueInXDays:13, dueInXDays:14, dueInXDays:15.
+
+### 3. `/user-specific-history`
+This API retrieves the borrowing history of a user by taking their contact number as input along with an optional filter to narrow down the search results.
+
 ## Features
 
 - **Microservices**: The architecture is based on microservices, where each service represents a specific business functionality or feature.
