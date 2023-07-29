@@ -1,6 +1,7 @@
 const app = require('../app');
 const {
-  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares, bookManageUpdateBookMiddlewares, bookManageUpdateISBNMiddlewares, bookManageListBooksMiddlewares, bookManageSearchBooksMiddlewares, bookManageBookAvailabilityMiddlewares,borrowingManageTransactBookMiddlewares,borrowingManageListBorrowedBooksMiddlewares, borrowingManageUserHistoryMiddlewares, notifManageNotifyUserMiddlewares, notifManageNotifyAllMiddlewares
+  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares, bookManageUpdateBookMiddlewares, bookManageUpdateISBNMiddlewares, bookManageListBooksMiddlewares, bookManageSearchBooksMiddlewares, bookManageBookAvailabilityMiddlewares,borrowingManageTransactBookMiddlewares,borrowingManageListBorrowedBooksMiddlewares, borrowingManageUserHistoryMiddlewares, notifManageNotifyUserMiddlewares, notifManageNotifyAllMiddlewares,
+  notifManageNotifyUserGroupsMiddlewares
 } = require('../Middlewares/Route-Middlewares/expressRateLimit.middleware');
 const Joi = require('joi');
 const {
@@ -21,6 +22,41 @@ const { cleanObject } = require('../../../shared/src/utilities/genricUtilities')
 // API specific Rate-limiting Middleware
 // ** notification-management APIs   *******************
 
+app.get(
+  '/routes/library-management-system/Sub-System/NotificationManagement/notify-User-Groups/:groupName',
+  notifManageNotifyUserGroupsMiddlewares.expressRateLimiterMiddleware,
+  async (req, res, next) => {
+    try {
+      const requestBodySchema = Joi.object({
+        message: Joi.string().required(),
+      });
+      const userGroupName = req?.params?.groupName;
+      const validatedData = requestBodySchema.validate(req.body);
+      if (validatedData?.error) {
+        throw {
+          status: 400,
+          message: 'Bad Request',
+          error: validatedData?.error,
+        };
+      } else {
+        const { message } = validatedData.value;
+
+        const response = await notificationManagementProcessMappers.notifySpecificUserGroups({
+          message: message,
+          userGroupName: userGroupName,
+        });
+        
+        logger.info("🚀 ~ file: microserviceRouters.js: ~ response:", response);
+        res.json({
+          response: response,
+        });
+      }
+     } catch (error) {
+      logger.error('This is an error message.');
+      res.status(400).json({ error: error });
+    }
+  }
+);
 
 app.get(
   '/routes/library-management-system/Sub-System/NotificationManagement/notify-all',
