@@ -1,6 +1,6 @@
 const app = require('../app');
 const {
-  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares, bookManageUpdateBookMiddlewares, bookManageUpdateISBNMiddlewares, bookManageListBooksMiddlewares, bookManageSearchBooksMiddlewares, bookManageBookAvailabilityMiddlewares,borrowingManageTransactBookMiddlewares,borrowingManageListBorrowedBooksMiddlewares, borrowingManageUserHistoryMiddlewares, notifManageNotifyUserMiddlewares
+  authSignUpMiddlewares, authLoginMiddlewares, bookManageCreateBookMiddlewares, bookManageDeleteBookMiddlewares, bookManageUpdateBookMiddlewares, bookManageUpdateISBNMiddlewares, bookManageListBooksMiddlewares, bookManageSearchBooksMiddlewares, bookManageBookAvailabilityMiddlewares,borrowingManageTransactBookMiddlewares,borrowingManageListBorrowedBooksMiddlewares, borrowingManageUserHistoryMiddlewares, notifManageNotifyUserMiddlewares, notifManageNotifyAllMiddlewares
 } = require('../Middlewares/Route-Middlewares/expressRateLimit.middleware');
 const Joi = require('joi');
 const {
@@ -20,6 +20,43 @@ const { cleanObject } = require('../../../shared/src/utilities/genricUtilities')
 
 // API specific Rate-limiting Middleware
 // ** notification-management APIs   *******************
+
+
+app.get(
+  '/routes/library-management-system/Sub-System/NotificationManagement/notify-all',
+  notifManageNotifyAllMiddlewares.expressRateLimiterMiddleware,
+  async (req, res, next) => {
+    try {
+      const schema = Joi.object({
+        message: Joi.string().required(),
+      });
+  
+      const validatedData = schema.validate(req.body);
+      if (validatedData?.error) {
+        throw {
+          status: 400,
+          message: 'Bad Request',
+          error: validatedData?.error,
+        };
+      } else {
+        const { message } = validatedData.value;
+
+        const response = await notificationManagementProcessMappers.notifyAllUsers({
+          message: message,
+        });
+        
+        logger.info("🚀 ~ file: microserviceRouters.js: ~ response:", response);
+        res.json({
+          response: response,
+        });
+      }
+     } catch (error) {
+      logger.error('This is an error message.');
+      res.status(400).json({ error: error });
+    }
+  }
+);
+
 app.get(
   '/routes/library-management-system/Sub-System/NotificationManagement/notify-user',
   notifManageNotifyUserMiddlewares.expressRateLimiterMiddleware,
