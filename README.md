@@ -2,7 +2,7 @@
 
 This repository contains the backend microservices for the Library Management System. These microservices provide various APIs to manage books, notifications, and user-specific history related to the library system.  It follows the RESTful architectural style, employing HTTP methods like GET, POST, PUT, and DELETE for communication. JSON is used as the data exchange format, making it lightweight and widely compatible with modern web and mobile applications.
 
-![Example Image](./shared/src/assets/library.jpeg)
+![Example Image](./shared/src/assets/library.jpg)
 
 ## Technologies Used
 - Node.js
@@ -120,12 +120,12 @@ To get started with the project, follow these steps:
 
 1. Clone the repository:
 ```  
-   git clone https://github.com/anirudh-nayak-172k/Backend-Microservice -Architecture.git
+   git clone https://github.com/anirudh-nayak-172k/BiblioSparq-Library_Mangement_Software_Backend.git
 ```  
 
 2 . Navigate to the Directory and install the dependencies:
 ```
-    cd Backend-Microservice-Architecture
+    cd BiblioSparq-Library_Mangement_Software_Backend
     npm install
 ```
 
@@ -152,53 +152,74 @@ Each service exposes its own set of APIs.
 ```
 ## Directory Structure
 
-    server
-        ├── API-Gateway
-        │   └── src
-        │       ├── app.js
-        │       ├── Microservice-Routers
-        │       │   └── microserviceRouters.js
-        │       └── Middlewares
-        │           ├── Gateway-Middlewares
-        │           │   ├── ddos.middleware.js
-        │           │   ├── helmet.middleware.js
-        │           │   ├── jwt.middleware.js
-        │           │   ├── morgan.middleware.js
-        │           │   └── responseTime.middleware.js
-        │           └── Route-Middlewares
-        │               └── expressRateLimit.middleware.js
-        |
-        ├── shared
-        │   └── src
-        │       ├── configurations
-        │       │   ├── logger.configurations.js
-        │       │   └── redis.configurations.js
-        │       ├── constants
-        │       │   └── constants.js
-        │       ├── models
-        │       │   └── models.js
-        │       └── utilities
-        │           └── utilities.js
-        |── sub-systems
-        |    ├── Microservice-1
-        |    │   ├── Processes
-        |    │   │   └── process.js
-        |    │   └── Process-Mappers
-        |    │       └── processMappers.js
-        |    ├── Microservice-2
-        |    │   ├── Processes
-        |    │   │   └── process.js
-        |    │   └── Process-Mappers
-        |    │       └── processMappers.js
-        |    └── Microservice-3
-        |        ├── Processes
-        |        │   └── process.js
-        |        └── Process-Mappers
-        |            └── processMappers.js
-        |
-        ├── ecosystem.config.js
-        ├── package.json
-        ├── package-lock.json
+BiblioSparq-Library_Mangement_Software_Backend
+|
+├── API-Gateway
+│   └── src
+│       ├── app.js
+│       ├── Microservice-Routers
+│       │   └── microserviceRouters.js
+│       └── Middlewares
+│           ├── Gateway-Middlewares
+│           │   ├── ddos.middleware.js
+│           │   ├── helmet.middleware.js
+│           │   ├── jwt.middleware.js
+│           │   ├── morgan.middleware.js
+│           │   └── responseTime.middleware.js
+│           └── Route-Middlewares
+│               └── expressRateLimit.middleware.js
+├── ecosystem.config.js
+├── package.json
+├── package-lock.json
+├── README.md
+├── shared
+│   └── src
+│       ├── assets
+│       │   └── library.jpeg
+│       ├── configurations
+│       │   ├── logger.configurations.js
+│       │   ├── postgresConnection.configurations.js
+│       │   └── redis.configurations.js
+│       ├── constants
+│       │   └── constants.js
+│       ├── migrations
+│       │   ├── 20230312195800-create-sign-up.js
+│       │   ├── 20230323195343-create-book-management.js
+│       │   └── 20230408194107-create-borrowing-management.js
+│       ├── models
+│       │   ├── bookmanagement.js
+│       │   ├── borrowingmanagement.js
+│       │   ├── index.js
+│       │   └── signup.js
+│       ├── seeders
+│       ├── thirdPartyServices
+│       │   ├── sendInBlue.services.js
+│       │   └── twilio.services.js
+│       └── utilities
+│           ├── bookManagementUtilities.js
+│           ├── genricUtilities.js
+│           └── notificationManagementUtilities.js
+└── sub-systems
+    ├── authentication
+    │   ├── Processes
+    │   │   └── process.js
+    │   └── Process-Mappers
+    │       └── processMappers.js
+    ├── book-Management
+    │   ├── Processes
+    │   │   └── process.js
+    │   └── Process-Mappers
+    │       └── processMappers.js
+    ├── borrowing-Management
+    │   ├── Processes
+    │   │   └── process.js
+    │   └── Process-Mappers
+    │       └── processMappers.js
+    └── notification-Management
+        ├── Processes
+        │   └── process.js
+        └── Process-Mappers
+            └── processMappers.js
 
 ## Scripts
 
@@ -216,37 +237,49 @@ Each service exposes its own set of APIs.
 
 ## Dependencies
 
-    Express: Fast, unopinionated, minimalist web framework for Node.js.
-    
-    Body Parser: Node.js body parsing middleware.
-    
-    Bunyan: Logging library for Node.js.
-    
-    Bunyan Format: Human-readable bunyan log formatter.
-    
-    DDoS: DDoS protection middleware for Express.js.
-    
-    Dotenv: Loads environment variables from a .env file.
-    
-    Helmet: Secure your Express apps by setting various HTTP headers.
-    
-    Joi: Object schema validation for Node.js. 
-    
-    JSONWebToken: JSON Web Token implementation for Node.js.
-    
-    Morgan: HTTP request logger middleware for Node.js.
-    
-    Nodemon: Automatically restarts the server on file changes during   development.
-    
-    PM2: Production process manager for Node.js applications.
-    
-    Express Rate Limit: Rate limiting middleware for Express.js.
-    
-    Redis: In-memory data structure store used as a database and cache.
-    
-    Rate Limit Redis: Redis-based store for express-rate-limit middleware.
-    
-    Response Time: Express.js middleware to record response times.
+    bcryptjs: A library for hashing and comparing passwords securely.
+
+    csv-parser: A CSV parsing library for Node.js.
+
+    body-parser: Middleware for parsing request bodies in Express.
+
+    pg: A PostgreSQL client library for Node.js.
+
+    sequelize: An ORM (Object-Relational Mapping) for Node.js and databases like PostgreSQL, MySQL, SQLite, etc.
+
+    sib-api-v3-sdk: A library for integrating with SendinBlue's API v3.
+
+    bunyan: A simple and fast JSON logging library for Node.js.
+
+    twilio: A library for integrating with Twilio's communication services.
+
+    bunyan-format: A bunyan log formatter for human-readable console output.
+
+    ddos: A package for preventing and handling DDoS attacks in Node.js applications.
+
+    dotenv: A zero-dependency module for loading environment variables from a .env file.
+
+    express: A popular web framework for Node.js.
+
+    express-rate-limit: Middleware for rate-limiting requests in Express applications.
+
+    helmet: A collection of security-related middleware for Express to enhance security headers.
+
+    joi: A powerful schema validation library for JavaScript.
+
+    jsonwebtoken: A library for creating and validating JSON Web Tokens (JWT).
+
+    morgan: HTTP request logger middleware for Express.
+
+    nodemon: A utility to automatically restart Node.js applications during development.
+
+    pm2: A process manager for Node.js applications in production environments.
+
+    rate-limit-redis: Rate limiting using Redis as a store.
+
+    redis: A popular in-memory data store often used as a database, cache, and message broker.
+
+    response-time: Middleware for adding X-Response-Time header to responses in Express.
 
 ## License
 
