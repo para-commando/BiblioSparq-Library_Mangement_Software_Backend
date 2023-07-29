@@ -120,12 +120,12 @@ To get started with the project, follow these steps:
 
 1. Clone the repository:
 ```  
-   git clone https://github.com/anirudh-nayak-172k/Backend-Microservice -Architecture.git
+   git clone https://github.com/anirudh-nayak-172k/BiblioSparq-Library_Mangement_Software_Backend.git
 ```  
 
 2 . Navigate to the Directory and install the dependencies:
 ```
-    cd Backend-Microservice-Architecture
+    cd BiblioSparq-Library_Mangement_Software_Backend
     npm install
 ```
 
@@ -152,53 +152,74 @@ Each service exposes its own set of APIs.
 ```
 ## Directory Structure
 
-    server
-        ├── API-Gateway
-        │   └── src
-        │       ├── app.js
-        │       ├── Microservice-Routers
-        │       │   └── microserviceRouters.js
-        │       └── Middlewares
-        │           ├── Gateway-Middlewares
-        │           │   ├── ddos.middleware.js
-        │           │   ├── helmet.middleware.js
-        │           │   ├── jwt.middleware.js
-        │           │   ├── morgan.middleware.js
-        │           │   └── responseTime.middleware.js
-        │           └── Route-Middlewares
-        │               └── expressRateLimit.middleware.js
-        |
-        ├── shared
-        │   └── src
-        │       ├── configurations
-        │       │   ├── logger.configurations.js
-        │       │   └── redis.configurations.js
-        │       ├── constants
-        │       │   └── constants.js
-        │       ├── models
-        │       │   └── models.js
-        │       └── utilities
-        │           └── utilities.js
-        |── sub-systems
-        |    ├── Microservice-1
-        |    │   ├── Processes
-        |    │   │   └── process.js
-        |    │   └── Process-Mappers
-        |    │       └── processMappers.js
-        |    ├── Microservice-2
-        |    │   ├── Processes
-        |    │   │   └── process.js
-        |    │   └── Process-Mappers
-        |    │       └── processMappers.js
-        |    └── Microservice-3
-        |        ├── Processes
-        |        │   └── process.js
-        |        └── Process-Mappers
-        |            └── processMappers.js
-        |
-        ├── ecosystem.config.js
-        ├── package.json
-        ├── package-lock.json
+BiblioSparq-Library_Mangement_Software_Backend
+|
+├── API-Gateway
+│   └── src
+│       ├── app.js
+│       ├── Microservice-Routers
+│       │   └── microserviceRouters.js
+│       └── Middlewares
+│           ├── Gateway-Middlewares
+│           │   ├── ddos.middleware.js
+│           │   ├── helmet.middleware.js
+│           │   ├── jwt.middleware.js
+│           │   ├── morgan.middleware.js
+│           │   └── responseTime.middleware.js
+│           └── Route-Middlewares
+│               └── expressRateLimit.middleware.js
+├── ecosystem.config.js
+├── package.json
+├── package-lock.json
+├── README.md
+├── shared
+│   └── src
+│       ├── assets
+│       │   └── library.jpeg
+│       ├── configurations
+│       │   ├── logger.configurations.js
+│       │   ├── postgresConnection.configurations.js
+│       │   └── redis.configurations.js
+│       ├── constants
+│       │   └── constants.js
+│       ├── migrations
+│       │   ├── 20230312195800-create-sign-up.js
+│       │   ├── 20230323195343-create-book-management.js
+│       │   └── 20230408194107-create-borrowing-management.js
+│       ├── models
+│       │   ├── bookmanagement.js
+│       │   ├── borrowingmanagement.js
+│       │   ├── index.js
+│       │   └── signup.js
+│       ├── seeders
+│       ├── thirdPartyServices
+│       │   ├── sendInBlue.services.js
+│       │   └── twilio.services.js
+│       └── utilities
+│           ├── bookManagementUtilities.js
+│           ├── genricUtilities.js
+│           └── notificationManagementUtilities.js
+└── sub-systems
+    ├── authentication
+    │   ├── Processes
+    │   │   └── process.js
+    │   └── Process-Mappers
+    │       └── processMappers.js
+    ├── book-Management
+    │   ├── Processes
+    │   │   └── process.js
+    │   └── Process-Mappers
+    │       └── processMappers.js
+    ├── borrowing-Management
+    │   ├── Processes
+    │   │   └── process.js
+    │   └── Process-Mappers
+    │       └── processMappers.js
+    └── notification-Management
+        ├── Processes
+        │   └── process.js
+        └── Process-Mappers
+            └── processMappers.js
 
 ## Scripts
 
