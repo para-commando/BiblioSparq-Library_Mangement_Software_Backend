@@ -4,6 +4,50 @@ const { Op } = require('sequelize');
 const { SendInBlueApiInstance,} = require('../../../shared/src/thirdPartyServices/sendInBlue.services');
 const { twilioSmsClient } = require('../../../shared/src/thirdPartyServices/twilio.services');
 module.exports.notificationManagementProcesses = {
+  notifyAllUsers: async ({ message }) => {
+    try {
+      const allUsers = await db.signUp.findAll({
+        attributes: ['phone_no'],
+        raw: true,
+        where: {
+          phone_no: {
+            [Op.not]: null,
+          },
+        },
+      });
+
+      let allPhoneNumbers = [];
+      allUsers.forEach((UserData) => allPhoneNumbers.push(UserData.phone_no));
+
+      allPhoneNumbers = [
+        process.env.MY_FIRST_CONTACT_NUMBER,
+        process.env.MY_SECOND_CONTACT_NUMBER,
+      ];
+      const messagesSent = [];
+      if (allUsers?.length) {
+        for (let i = 0; i < allPhoneNumbers.length; i++) {
+          const twilioResponse = await twilioSmsClient.messages.create({
+            body: message,
+            from: process.env.TWILIO_PHONE_NUMBER,
+            to: `+91${allPhoneNumbers[i]}`,
+          });
+
+          if (twilioResponse?.accountSid === process.env.TWILIO_ACCOUNT_SID) {
+            messagesSent.push(`${allPhoneNumbers[i]}`);
+          }
+        }
+        return {
+          successfullyMessagedNumbers: messagesSent,
+        };
+      } else {
+        return {
+          message: 'Failed to fetch user contact numbers',
+        };
+      }
+    } catch (error) {
+       throw error;
+    }
+  },
     notifyUserViaMailAndSmsUser: async ({ phone_no, message }) => {
         try {
           const getUserData = await db.signUp.findOne({
