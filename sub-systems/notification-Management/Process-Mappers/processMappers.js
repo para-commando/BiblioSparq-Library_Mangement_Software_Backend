@@ -1,6 +1,20 @@
 const {notificationManagementProcesses} = require('../Processes/process');
 const logger = require ('../../../shared/src/configurations/logger.configurations')
 module.exports.notificationManagementProcessMappers = {
+  notifySpecificUserGroups: async ({
+    message,
+    userGroupName,
+  }) => {
+    try {
+      const response = await notificationManagementProcesses.notifySpecificUserGroups({
+        message: message,
+        userGroupName: userGroupName,
+      });
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
   notifyAllUsers : async ({ message }) => {
     try {
       const response = await notificationManagementProcesses.notifyAllUsers({
