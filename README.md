@@ -2,7 +2,7 @@
 
 This repository contains the backend microservices for the Library Management System. These microservices provide various APIs to manage books, notifications, and user-specific history related to the library system.  It follows the RESTful architectural style, employing HTTP methods like GET, POST, PUT, and DELETE for communication. JSON is used as the data exchange format, making it lightweight and widely compatible with modern web and mobile applications.
 
-![Example Image](./shared/src/assets/library.jpeg)
+![Example Image](./shared/src/assets/library.jpg)
 
 ## Technologies Used
 - Node.js
