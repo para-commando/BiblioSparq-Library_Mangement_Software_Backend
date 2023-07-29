@@ -100,6 +100,8 @@ This Subsystem contains APIs for notification Management, The base URL for all t
 ### 1. `/notify-user`
 This API is used to notify a user via both email and SMS by accepting a custom message as input. The API accepts a message and a phone number as input. It sends the message to the user via SMS using the Twilio API and to the user's email via Sendinblue email service
 
+### 2. `/notify-all`
+This API Sends a custom message to all users via SMS and email. Uses Twilio for SMS messaging and Sendinblue email service for emailing the users.
 ## Features
 
 - **Microservices**: The architecture is based on microservices, where each service represents a specific business functionality or feature.
