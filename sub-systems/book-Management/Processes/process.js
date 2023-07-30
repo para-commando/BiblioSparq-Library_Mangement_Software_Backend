@@ -4,6 +4,22 @@ const { Op } = require('sequelize');
 const {
   book_management_column_Mapping
 } = require('../../../shared/src/constants/objects.constants');
+db.borrowingManagement.belongsTo(db.signUp, {
+  foreignKey: 'user_id',
+  targetKey: 'id',
+});
+db.signUp.hasMany(db.borrowingManagement, {
+  foreignKey: 'user_id',
+  targetKey: 'id',
+});
+db.borrowingManagement.belongsTo(db.bookManagement, {
+  foreignKey: 'book_id',
+  targetKey: 'id',
+});
+db.bookManagement.hasMany(db.borrowingManagement, {
+  foreignKey: 'book_id',
+  targetKey: 'id',
+});
 module.exports.bookManagementProcesses = {
   bookAvailability: async ({ ISBN }) => {
     try {

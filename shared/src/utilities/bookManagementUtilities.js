@@ -84,7 +84,7 @@ module.exports.getPropertiesWithValidValues =
           [Op.gte]: new Date(now.getFullYear(), now.getMonth() - 5, 1),
         };
       case 'LastXmonthsBack':
-       debugger  
+         
         return {
           [Op.gte]: new Date(now.getFullYear(), now.getMonth() - key[keyName]-1, 1),
         };
