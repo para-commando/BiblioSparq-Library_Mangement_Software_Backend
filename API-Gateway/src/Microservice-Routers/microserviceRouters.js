@@ -22,7 +22,7 @@ const { cleanObject } = require('../../../shared/src/utilities/genricUtilities')
 // API specific Rate-limiting Middleware
 // ** notification-management APIs   *******************
 
-app.get(
+app.post(
   '/routes/library-management-system/Sub-System/NotificationManagement/notify-User-Groups/:groupName',
   notifManageNotifyUserGroupsMiddlewares.expressRateLimiterMiddleware,
   async (req, res, next) => {
@@ -52,13 +52,14 @@ app.get(
         });
       }
      } catch (error) {
+      console.log("🚀 ~ file: microserviceRouters.js:55 ~ error:", error)
       logger.error('This is an error message.');
       res.status(400).json({ error: error.message });
     }
   }
 );
 
-app.get(
+app.post(
   '/routes/library-management-system/Sub-System/NotificationManagement/notify-all',
   notifManageNotifyAllMiddlewares.expressRateLimiterMiddleware,
   async (req, res, next) => {
@@ -93,7 +94,7 @@ app.get(
   }
 );
 
-app.get(
+app.post(
   '/routes/library-management-system/Sub-System/NotificationManagement/notify-user',
   notifManageNotifyUserMiddlewares.expressRateLimiterMiddleware,
   async (req, res, next) => {

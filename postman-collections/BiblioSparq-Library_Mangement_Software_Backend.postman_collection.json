@@ -1,0 +1,3559 @@
+{
+	"info": {
+		"_postman_id": "75d5db57-6d94-478e-93b7-8cbd031aefe3",
+		"name": "BiblioSparq-Library_Mangement_Software_Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27686999"
+	},
+	"item": [
+		{
+			"name": "Authentication-managment",
+			"item": [
+				{
+					"name": "createNewUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AuthorizationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"Anirudh\",\n  \"lastName\": \"Nayak\",\n  \"email\": \"myMail.example@example.com\",\n  \"gender\": \"male\",\n  \"city\": \"mangalore\",\n  \"password\": \"iWillNotTellYou9934\",\n  \"phoneNo\": \"8296322778\",\n  \"state\": \"karnataka\",\n  \"country\": \"India\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BasePATH}}Authentication/user-authentication/sign-up",
+							"host": [
+								"{{BasePATH}}Authentication"
+							],
+							"path": [
+								"user-authentication",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "loginUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AuthorizationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"phoneNo\": \"8296322778\",\n  \"password\": \"iWillNotTellYou9934\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BasePATH}}Authentication/user-authentication/login",
+							"host": [
+								"{{BasePATH}}Authentication"
+							],
+							"path": [
+								"user-authentication",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{AuthorizationToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Book-management",
+			"item": [
+				{
+					"name": "SearchBook API Request variations",
+					"item": [
+						{
+							"name": "searchBooks",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/search-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&bookTitle=Glitter",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"search-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "bookTitle",
+											"value": "Glitter"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "searchBooks filter c1",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/search-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&bookTitle=Glitter&filter={\"authorName\": \"Charles Osborne\", \"genre\": \"Fiction\", \"yearOfPublication\": { \"between\": [],\"before\": [],\"on\": [2006],\"after\": []}, \"availabilityStatus\": \"available\", \"ISBN\": \"9780002261982\", \"bookSubtitle\": \"Chaos and Order\"}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"search-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "bookTitle",
+											"value": "Glitter"
+										},
+										{
+											"key": "filter",
+											"value": "{\"authorName\": \"Charles Osborne\", \"genre\": \"Fiction\", \"yearOfPublication\": { \"between\": [],\"before\": [],\"on\": [2006],\"after\": []}, \"availabilityStatus\": \"available\", \"ISBN\": \"9780002261982\", \"bookSubtitle\": \"Chaos and Order\"}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "searchBooks filter c2",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/search-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&bookTitle=Glitter&filter={\"authorName\": null, \"genre\": \"Fiction\", \"yearOfPublication\": {\"between\": [], \"before\": [], \"on\": [2006], \"after\": []}, \"availabilityStatus\": null, \"ISBN\": \"9780002261982\", \"bookSubtitle\": \"Ocean\"}\n",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"search-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "bookTitle",
+											"value": "Glitter"
+										},
+										{
+											"key": "filter",
+											"value": "{\"authorName\": null, \"genre\": \"Fiction\", \"yearOfPublication\": {\"between\": [], \"before\": [], \"on\": [2006], \"after\": []}, \"availabilityStatus\": null, \"ISBN\": \"9780002261982\", \"bookSubtitle\": \"Ocean\"}\n"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "searchBooks filter c3",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/search-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&bookTitle=Glitter&filter={\"yearOfPublication\": {\"between\": [2006,2008], \"before\": [], \"on\": [], \"after\": []}}\n",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"search-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "bookTitle",
+											"value": "Glitter"
+										},
+										{
+											"key": "filter",
+											"value": "{\"yearOfPublication\": {\"between\": [2006,2008], \"before\": [], \"on\": [], \"after\": []}}\n"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "searchBooks filter c4",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/search-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&bookTitle=Glitter&filter={\"yearOfPublication\": {\"between\": [], \"before\": [], \"on\": [2006], \"after\": []}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"search-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "bookTitle",
+											"value": "Glitter"
+										},
+										{
+											"key": "filter",
+											"value": "{\"yearOfPublication\": {\"between\": [], \"before\": [], \"on\": [2006], \"after\": []}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "searchBooks filter c5",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/search-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&bookTitle=Glitter&filter={\"yearOfPublication\": {\"between\": [], \"before\": [2006], \"on\": [], \"after\": []}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"search-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "bookTitle",
+											"value": "Glitter"
+										},
+										{
+											"key": "filter",
+											"value": "{\"yearOfPublication\": {\"between\": [], \"before\": [2006], \"on\": [], \"after\": []}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "searchBooks filter c6",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/search-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&bookTitle=Glitter&filter={\"yearOfPublication\": {\"between\": [], \"before\": [], \"on\": [], \"after\": [2006]}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"search-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "bookTitle",
+											"value": "Glitter"
+										},
+										{
+											"key": "filter",
+											"value": "{\"yearOfPublication\": {\"between\": [], \"before\": [], \"on\": [], \"after\": [2006]}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "searchBooks filter c7",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/search-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&bookTitle=Glitter&filter={\"bookAddedDate\": {\"lastSevenDays\":1, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"search-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "bookTitle",
+											"value": "Glitter"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":1, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "searchBooks filter c8",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/search-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&bookTitle=Glitter&filter={\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":1, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"search-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "bookTitle",
+											"value": "Glitter"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":1, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "searchBooks filter c9",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/search-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&bookTitle=Glitter&filter={\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":1, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"search-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "bookTitle",
+											"value": "Glitter"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":1, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "searchBooks filter c10",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/search-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&bookTitle=Glitter&filter={\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":1, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"search-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "bookTitle",
+											"value": "Glitter"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":1, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "searchBooks filter c11",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/search-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&bookTitle=Glitter&filter={\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 1, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"search-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "bookTitle",
+											"value": "Glitter"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 1, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "searchBooks filter c12",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/search-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&bookTitle=Glitter&filter={\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 1, \"LastXmonthsBack\":0}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"search-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "bookTitle",
+											"value": "Glitter"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 1, \"LastXmonthsBack\":0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "searchBooks filter c13",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/search-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&bookTitle=Glitter&filter={\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":5}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"search-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "bookTitle",
+											"value": "Glitter"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":5}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "searchBooks filter c14",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/search-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&bookTitle=Glitter&filter={\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0, \"before\": [], \"on\": [], \"after\": [2006]}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"search-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "bookTitle",
+											"value": "Glitter"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0, \"before\": [], \"on\": [], \"after\": [2006]}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "searchBooks filter c15",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/search-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&bookTitle=Glitter&filter={\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0, \"before\": [], \"on\": [2023], \"after\": []}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"search-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "bookTitle",
+											"value": "Glitter"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0, \"before\": [], \"on\": [2023], \"after\": []}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "searchBooks filter c16",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/search-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&bookTitle=Glitter",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"search-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "bookTitle",
+											"value": "Glitter"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "searchBooks filter c17",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/search-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&bookTitle=Glitter&filter={\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0, \"before\": [], \"on\": [], \"after\": [], \"between\": [2005,2024]}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"search-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "bookTitle",
+											"value": "Glitter"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0, \"before\": [], \"on\": [], \"after\": [], \"between\": [2005,2024]}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ListBooks API Request variations Copy",
+					"item": [
+						{
+							"name": "ListBooks",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/list-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"list-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ListBooks filter c1",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/list-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&filter={\"authorName\": \"Charles Osborne\", \"genre\": \"Fiction\", \"yearOfPublication\": { \"between\": [],\"before\": [],\"on\": [2006],\"after\": []}, \"availabilityStatus\": \"available\", \"ISBN\": \"9780002261982\", \"bookSubtitle\": \"Chaos and Order\"}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"list-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "filter",
+											"value": "{\"authorName\": \"Charles Osborne\", \"genre\": \"Fiction\", \"yearOfPublication\": { \"between\": [],\"before\": [],\"on\": [2006],\"after\": []}, \"availabilityStatus\": \"available\", \"ISBN\": \"9780002261982\", \"bookSubtitle\": \"Chaos and Order\"}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ListBooks filter c2",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/list-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&filter={\"authorName\": null, \"genre\": \"Fiction\", \"yearOfPublication\": {\"between\": [], \"before\": [], \"on\": [2006], \"after\": []}, \"availabilityStatus\": null, \"ISBN\": \"9780002261982\", \"bookSubtitle\": \"Ocean\"}\n",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"list-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "filter",
+											"value": "{\"authorName\": null, \"genre\": \"Fiction\", \"yearOfPublication\": {\"between\": [], \"before\": [], \"on\": [2006], \"after\": []}, \"availabilityStatus\": null, \"ISBN\": \"9780002261982\", \"bookSubtitle\": \"Ocean\"}\n"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ListBooks filter c3",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/list-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&filter={\"yearOfPublication\": {\"between\": [2006,2008], \"before\": [], \"on\": [], \"after\": []}}\n",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"list-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "filter",
+											"value": "{\"yearOfPublication\": {\"between\": [2006,2008], \"before\": [], \"on\": [], \"after\": []}}\n"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ListBooks filter c4",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/list-books?numberOfRecordsPerPage=5&filter={\"yearOfPublication\": {\"between\": [], \"before\": [], \"on\": [2006], \"after\": []}}&numberOfPagesToBeSkipped=1",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"list-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "filter",
+											"value": "{\"yearOfPublication\": {\"between\": [], \"before\": [], \"on\": [2006], \"after\": []}}"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ListBooks filter c5",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/list-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&filter={\"yearOfPublication\": {\"between\": [], \"before\": [2006], \"on\": [], \"after\": []}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"list-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "filter",
+											"value": "{\"yearOfPublication\": {\"between\": [], \"before\": [2006], \"on\": [], \"after\": []}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ListBooks filter c6",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/list-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&filter={\"yearOfPublication\": {\"between\": [], \"before\": [], \"on\": [], \"after\": [2006]}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"list-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "filter",
+											"value": "{\"yearOfPublication\": {\"between\": [], \"before\": [], \"on\": [], \"after\": [2006]}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ListBooks filter c7",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/list-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&filter={\"bookAddedDate\": {\"lastSevenDays\":1, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"list-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":1, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ListBooks filter c8",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/list-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&filter={\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":1, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"list-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":1, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ListBooks filter c9",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/list-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&filter={\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":1, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"list-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":1, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ListBooks filter c10",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/list-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&filter={\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":1, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"list-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":1, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ListBooks filter c11",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/list-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&filter={\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 1, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"list-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 1, \"lastSixMonths\": 0, \"LastXmonthsBack\":0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ListBooks filter c12",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/list-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&filter={\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 1, \"LastXmonthsBack\":0}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"list-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 1, \"LastXmonthsBack\":0}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ListBooks filter c13",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/list-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&filter={\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":5}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"list-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":5}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ListBooks filter c14",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/list-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&filter={\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0, \"before\": [], \"on\": [], \"after\": [2006]}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"list-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0, \"before\": [], \"on\": [], \"after\": [2006]}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ListBooks filter c15",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/list-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&filter={\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0, \"before\": [], \"on\": [2023], \"after\": []}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"list-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0, \"before\": [], \"on\": [2023], \"after\": []}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ListBooks filter c16",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/list-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&filter={\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0, \"before\": [2025], \"on\": [], \"after\": []}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"list-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0, \"before\": [2025], \"on\": [], \"after\": []}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ListBooks filter c17",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BookManagement/list-books?numberOfRecordsPerPage=5&numberOfPagesToBeSkipped=1&filter={\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0, \"before\": [], \"on\": [], \"after\": [], \"between\": [2005,2024]}}",
+									"host": [
+										"{{BasePATH}}BookManagement"
+									],
+									"path": [
+										"list-books"
+									],
+									"query": [
+										{
+											"key": "numberOfRecordsPerPage",
+											"value": "5"
+										},
+										{
+											"key": "numberOfPagesToBeSkipped",
+											"value": "1"
+										},
+										{
+											"key": "filter",
+											"value": "{\"bookAddedDate\": {\"lastSevenDays\":0, \"thisMonth\":0, \"thisQuarter\":0, \"thisYear\":0, \"lastQuarter\": 0, \"lastSixMonths\": 0, \"LastXmonthsBack\":0, \"before\": [], \"on\": [], \"after\": [], \"between\": [2005,2024]}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "createBook",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AuthorizationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BasePATH}}BookManagement/create-book",
+							"host": [
+								"{{BasePATH}}BookManagement"
+							],
+							"path": [
+								"create-book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateBook",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AuthorizationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BasePATH}}BookManagement/create-book",
+							"host": [
+								"{{BasePATH}}BookManagement"
+							],
+							"path": [
+								"create-book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateISBN",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AuthorizationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BasePATH}}BookManagement/create-book",
+							"host": [
+								"{{BasePATH}}BookManagement"
+							],
+							"path": [
+								"create-book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bookAvailability",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AuthorizationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ISBN\": \"9781612680194\",\n  \"bookTitle\": \"Rich dad poor dad\",\n  \"subtitle\": \"To get riches\",\n  \"author\": \"Robert kiyosaki\",\n  \"genre\": \"Non-fiction\",\n  \"yearOfPublication\": \"07-01-2018\",\n  \"bookAvailabilityStatus\": \"available\",\n  \"originalNumberOfCopies\": 5,\n  \"numberOfCopiesLeft\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BasePATH}}BookManagement/book-availability?ISBN=9780006482079",
+							"host": [
+								"{{BasePATH}}BookManagement"
+							],
+							"path": [
+								"book-availability"
+							],
+							"query": [
+								{
+									"key": "ISBN",
+									"value": "9780006482079"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteBook",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AuthorizationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ISBN\": \"9781612680194\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BasePATH}}BookManagement/delete-book",
+							"host": [
+								"{{BasePATH}}BookManagement"
+							],
+							"path": [
+								"delete-book"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{AuthorizationToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Borrowing-management",
+			"item": [
+				{
+					"name": "transactBook API request Variants",
+					"item": [
+						{
+							"name": "transactBook-borrow",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"bookISBN\": \"9781612680194\",\n  \"contactNumber\": \"9271308992\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BorrowingManagement/transact-book/:borrowOrReturn",
+									"host": [
+										"{{BasePATH}}BorrowingManagement"
+									],
+									"path": [
+										"transact-book",
+										":borrowOrReturn"
+									],
+									"variable": [
+										{
+											"key": "borrowOrReturn",
+											"value": "borrow"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "transactBook-return",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"bookISBN\": \"9781612680194\",\n  \"contactNumber\": \"9271308992\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}BorrowingManagement/transact-book/:borrowOrReturn",
+									"host": [
+										"{{BasePATH}}BorrowingManagement"
+									],
+									"path": [
+										"transact-book",
+										":borrowOrReturn"
+									],
+									"variable": [
+										{
+											"key": "borrowOrReturn",
+											"value": "borrow"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "getBorrowedBooksWithUserInfo API Request Variants",
+					"item": [
+						{
+							"name": "getBorrowedBooksWithUserInfo",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BasePATH}}BorrowingManagement/list/all-borrowed-books",
+									"host": [
+										"{{BasePATH}}BorrowingManagement"
+									],
+									"path": [
+										"list",
+										"all-borrowed-books"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getBorrowedBooksWithUserInfo C1",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{BasePATH}}BorrowingManagement/list/all-borrowed-books?filter={\"overdue\":1}",
+									"host": [
+										"{{BasePATH}}BorrowingManagement"
+									],
+									"path": [
+										"list",
+										"all-borrowed-books"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "{\"overdue\":1}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getBorrowedBooksWithUserInfo C2",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BasePATH}}BorrowingManagement/list/all-borrowed-books?filter={dueInXDays:2}",
+									"host": [
+										"{{BasePATH}}BorrowingManagement"
+									],
+									"path": [
+										"list",
+										"all-borrowed-books"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "{dueInXDays:2}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getBorrowedBooksWithUserInfo C3",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BasePATH}}BorrowingManagement/list/all-borrowed-books?filter={dueInXDays:13}",
+									"host": [
+										"{{BasePATH}}BorrowingManagement"
+									],
+									"path": [
+										"list",
+										"all-borrowed-books"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "{dueInXDays:13}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getBorrowedBooksWithUserInfo C4",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BasePATH}}BorrowingManagement/list/all-borrowed-books?filter={dueInXDays:14}",
+									"host": [
+										"{{BasePATH}}BorrowingManagement"
+									],
+									"path": [
+										"list",
+										"all-borrowed-books"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "{dueInXDays:14}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getBorrowedBooksWithUserInfo C5",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BasePATH}}BorrowingManagement/list/all-borrowed-books?filter={dueInXDays:15}",
+									"host": [
+										"{{BasePATH}}BorrowingManagement"
+									],
+									"path": [
+										"list",
+										"all-borrowed-books"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "{dueInXDays:15}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "getUserBorrowHistory API Request Variants Copy",
+					"item": [
+						{
+							"name": "getUserBorrowHistory",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BasePATH}}BorrowingManagement/user-specific-history/?phoneNo=9271308992",
+									"host": [
+										"{{BasePATH}}BorrowingManagement"
+									],
+									"path": [
+										"user-specific-history",
+										""
+									],
+									"query": [
+										{
+											"key": "phoneNo",
+											"value": "9271308992"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getUserBorrowHistory C1",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{BasePATH}}BorrowingManagement/user-specific-history/?phoneNo=9271308992&filter={\"overdue\":1}",
+									"host": [
+										"{{BasePATH}}BorrowingManagement"
+									],
+									"path": [
+										"user-specific-history",
+										""
+									],
+									"query": [
+										{
+											"key": "phoneNo",
+											"value": "9271308992"
+										},
+										{
+											"key": "filter",
+											"value": "{\"overdue\":1}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getUserBorrowHistory C2",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BasePATH}}BorrowingManagement/user-specific-history/?phoneNo=9271308992&filter={dueInXDays:2}",
+									"host": [
+										"{{BasePATH}}BorrowingManagement"
+									],
+									"path": [
+										"user-specific-history",
+										""
+									],
+									"query": [
+										{
+											"key": "phoneNo",
+											"value": "9271308992"
+										},
+										{
+											"key": "filter",
+											"value": "{dueInXDays:2}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getUserBorrowHistory C3",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BasePATH}}BorrowingManagement/user-specific-history/?phoneNo=9271308992&filter={dueInXDays:13}",
+									"host": [
+										"{{BasePATH}}BorrowingManagement"
+									],
+									"path": [
+										"user-specific-history",
+										""
+									],
+									"query": [
+										{
+											"key": "phoneNo",
+											"value": "9271308992"
+										},
+										{
+											"key": "filter",
+											"value": "{dueInXDays:13}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getUserBorrowHistory C4",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BasePATH}}BorrowingManagement/user-specific-history/?phoneNo=9271308992&filter={dueInXDays:14}",
+									"host": [
+										"{{BasePATH}}BorrowingManagement"
+									],
+									"path": [
+										"user-specific-history",
+										""
+									],
+									"query": [
+										{
+											"key": "phoneNo",
+											"value": "9271308992"
+										},
+										{
+											"key": "filter",
+											"value": "{dueInXDays:14}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getUserBorrowHistory C5",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BasePATH}}BorrowingManagement/user-specific-history/?phoneNo=9271308992&filter={dueInXDays:15}",
+									"host": [
+										"{{BasePATH}}BorrowingManagement"
+									],
+									"path": [
+										"user-specific-history",
+										""
+									],
+									"query": [
+										{
+											"key": "phoneNo",
+											"value": "9271308992"
+										},
+										{
+											"key": "filter",
+											"value": "{dueInXDays:15}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{AuthorizationToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Notification-management",
+			"item": [
+				{
+					"name": "notifySpecificUserGroups API request variants",
+					"item": [
+						{
+							"name": "notifySpecificUserGroups",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"message\": \"custom message\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}NotificationManagement/notify-User-Groups/:groupName",
+									"host": [
+										"{{BasePATH}}NotificationManagement"
+									],
+									"path": [
+										"notify-User-Groups",
+										":groupName"
+									],
+									"variable": [
+										{
+											"key": "groupName",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "notifySpecificUserGroups C1",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"message\": \"custom message\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}NotificationManagement/notify-User-Groups/:groupName",
+									"host": [
+										"{{BasePATH}}NotificationManagement"
+									],
+									"path": [
+										"notify-User-Groups",
+										":groupName"
+									],
+									"variable": [
+										{
+											"key": "groupName",
+											"value": "overdue books users"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "notifySpecificUserGroups C2",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"message\": \"custom message\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}NotificationManagement/notify-User-Groups/:groupName",
+									"host": [
+										"{{BasePATH}}NotificationManagement"
+									],
+									"path": [
+										"notify-User-Groups",
+										":groupName"
+									],
+									"variable": [
+										{
+											"key": "groupName",
+											"value": "borrowed only users"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "notifySpecificUserGroups C3",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"message\": \"custom message\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}NotificationManagement/notify-User-Groups/:groupName",
+									"host": [
+										"{{BasePATH}}NotificationManagement"
+									],
+									"path": [
+										"notify-User-Groups",
+										":groupName"
+									],
+									"variable": [
+										{
+											"key": "groupName",
+											"value": "due in 5 days users"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "notifySpecificUserGroups C4",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"message\": \"custom message\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}NotificationManagement/notify-User-Groups/:groupName",
+									"host": [
+										"{{BasePATH}}NotificationManagement"
+									],
+									"path": [
+										"notify-User-Groups",
+										":groupName"
+									],
+									"variable": [
+										{
+											"key": "groupName",
+											"value": "due in 3 days users"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "notifySpecificUserGroups C5",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"message\": \"custom message\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}NotificationManagement/notify-User-Groups/:groupName",
+									"host": [
+										"{{BasePATH}}NotificationManagement"
+									],
+									"path": [
+										"notify-User-Groups",
+										":groupName"
+									],
+									"variable": [
+										{
+											"key": "groupName",
+											"value": "due in 1 day users"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "notifySpecificUserGroups C6",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"message\": \"custom message\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}NotificationManagement/notify-User-Groups/:groupName",
+									"host": [
+										"{{BasePATH}}NotificationManagement"
+									],
+									"path": [
+										"notify-User-Groups",
+										":groupName"
+									],
+									"variable": [
+										{
+											"key": "groupName",
+											"value": "due today users"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "notifySpecificUserGroups C7",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"message\": \"custom message\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}NotificationManagement/notify-User-Groups/:groupName",
+									"host": [
+										"{{BasePATH}}NotificationManagement"
+									],
+									"path": [
+										"notify-User-Groups",
+										":groupName"
+									],
+									"variable": [
+										{
+											"key": "groupName",
+											"value": "users who have not borrowed a book until now"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "notifySpecificUserGroups C8",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"message\": \"custom message\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}NotificationManagement/notify-User-Groups/:groupName",
+									"host": [
+										"{{BasePATH}}NotificationManagement"
+									],
+									"path": [
+										"notify-User-Groups",
+										":groupName"
+									],
+									"variable": [
+										{
+											"key": "groupName",
+											"value": "borrowed today"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "notifySpecificUserGroups C9",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"message\": \"custom message\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}NotificationManagement/notify-User-Groups/:groupName",
+									"host": [
+										"{{BasePATH}}NotificationManagement"
+									],
+									"path": [
+										"notify-User-Groups",
+										":groupName"
+									],
+									"variable": [
+										{
+											"key": "groupName",
+											"value": "borrowed 1 day ago"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "notifySpecificUserGroups C10",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"message\": \"custom message\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}NotificationManagement/notify-User-Groups/:groupName",
+									"host": [
+										"{{BasePATH}}NotificationManagement"
+									],
+									"path": [
+										"notify-User-Groups",
+										":groupName"
+									],
+									"variable": [
+										{
+											"key": "groupName",
+											"value": "borrowed 2 days ago"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "notifySpecificUserGroups C11",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AuthorizationToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"message\": \"custom message\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BasePATH}}NotificationManagement/notify-User-Groups/:groupName",
+									"host": [
+										"{{BasePATH}}NotificationManagement"
+									],
+									"path": [
+										"notify-User-Groups",
+										":groupName"
+									],
+									"variable": [
+										{
+											"key": "groupName",
+											"value": "borrowed 3 days ago"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "notifyAllUsers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AuthorizationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"message\": \"Upcoming Quiz on 27th may 2023\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BasePATH}}NotificationManagement/notify-all",
+							"host": [
+								"{{BasePATH}}NotificationManagement"
+							],
+							"path": [
+								"notify-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "notifyUserViaMailAndSmsUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AuthorizationToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"message\": \"Upcoming Quiz on 27th may 2023\",\n  \"phone_no\": \"8296321779\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BasePATH}}NotificationManagement/notify-user",
+							"host": [
+								"{{BasePATH}}NotificationManagement"
+							],
+							"path": [
+								"notify-user"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{AuthorizationToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Shared",
+			"item": [
+				{
+					"name": "Generate JWT",
+					"item": [
+						{
+							"name": "New Request",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{AuthorizationToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "BasePATH",
+			"value": "http://localhost:3000/routes/library-management-system/Sub-System/"
+		},
+		{
+			"key": "AuthorizationToken",
+			"value": ""
+		}
+	]
+}
