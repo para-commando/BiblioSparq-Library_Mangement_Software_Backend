@@ -1,6 +1,9 @@
 const logger = require('../../../shared/src/configurations/logger.configurations');
 const db = require('../../../shared/src/models/index');
 const { Op } = require('sequelize');
+const {
+  book_management_column_Mapping
+} = require('../../../shared/src/constants/objects.constants');
 module.exports.bookManagementProcesses = {
   bookAvailability: async ({ ISBN }) => {
     try {
