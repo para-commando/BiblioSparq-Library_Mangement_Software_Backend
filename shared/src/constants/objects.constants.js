@@ -11,6 +11,18 @@
     'borrowed 2 days ago':2,
     'borrowed 3 days ago':3
   }
-  
-  module.exports = { dueDateUserGroupMapping, borrowedDateUserGroupMapping };
+  const book_management_column_Mapping = {
+    authorName: 'authors',
+    availabilityStatus: 'status',
+    bookSubtitle: 'subtitle',
+    genre: 'categories',
+    ISBN10: 'isbn10',
+    ISBN13: 'isbn13',
+    numberOfCopiesLeft: 'numberOfCopiesLeft',
+    originalNumberOfCopies: 'originalNumberOfCopies',
+    title: 'title',
+    yearOfPublication: 'publishedYear',
+    bookAddedDate: 'createdAt',
+  };
+  module.exports = {book_management_column_Mapping, dueDateUserGroupMapping, borrowedDateUserGroupMapping };
   
