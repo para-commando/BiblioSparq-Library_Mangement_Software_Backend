@@ -13,17 +13,19 @@ module.exports.getPropertiesWithValidValues =
     return newArray;
   };
 
-module.exports.getDateFilterValuesForBooKAddedDate =
+  module.exports.getDateFilterValuesForBooKAddedDate =
   function getDateFilterValuesForBooKAddedDate({
     key,
     startYear = new Date().getFullYear(),
     endYear = new Date().getFullYear(),
   }) {
-    
+     const keyName =Object.keys(key)[0];
+    // to prevent from entering 0 as value when choosing the condition 'LastXmonthsBack'
+    key[keyName] = key[keyName]===0 ? 1 : key[keyName];
     const now = new Date();
     const month = 0; // January is month 0
     const day = 1;
-    switch (key) {
+    switch (keyName) {
       case 'between':
         return {
           [Op.between]: [
@@ -80,6 +82,11 @@ module.exports.getDateFilterValuesForBooKAddedDate =
       case 'lastSixMonths':
         return {
           [Op.gte]: new Date(now.getFullYear(), now.getMonth() - 5, 1),
+        };
+      case 'LastXmonthsBack':
+       debugger  
+        return {
+          [Op.gte]: new Date(now.getFullYear(), now.getMonth() - key[keyName]-1, 1),
         };
       default:
         throw new Error('Invalid key provided.');
