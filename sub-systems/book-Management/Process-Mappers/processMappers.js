@@ -4,7 +4,7 @@ const {
   getPropertiesWithValidValues,
   getDateFilterValuesForYearOfPublication,
   getDateFilterValuesForBooKAddedDate,
-} = require('../../../shared/src/utilities/');
+} = require('../../../shared/src/utilities/bookManagementUtilities');
 module.exports.bookManagementProcessMappers = {
   bookAvailability : async ({ ISBN }) => {
     try {
@@ -49,7 +49,7 @@ module.exports.bookManagementProcessMappers = {
         filter.bookAddedDate = getPropertiesWithValidValues(filter.bookAddedDate);
         const [filterCondition, ...rest] = Object.keys(filter.bookAddedDate);
         filter.bookAddedDate = getDateFilterValuesForBooKAddedDate({
-          key: filterCondition,
+          key: filter.bookAddedDate,
           startYear: filter.bookAddedDate[filterCondition][0],
           endYear: filter.bookAddedDate[filterCondition][1],
         });
@@ -98,7 +98,7 @@ module.exports.bookManagementProcessMappers = {
         filter.bookAddedDate = getPropertiesWithValidValues(filter.bookAddedDate);
         const [filterCondition, ...rest] = Object.keys(filter.bookAddedDate);
         filter.bookAddedDate = getDateFilterValuesForBooKAddedDate({
-          key: filterCondition,
+          key:  filter.bookAddedDate,
           startYear: filter.bookAddedDate[filterCondition][0],
           endYear: filter.bookAddedDate[filterCondition][1],
         });
