@@ -53,7 +53,7 @@ app.get(
       }
      } catch (error) {
       logger.error('This is an error message.');
-      res.status(400).json({ error: error });
+      res.status(400).json({ error: error.message });
     }
   }
 );
@@ -88,7 +88,7 @@ app.get(
       }
      } catch (error) {
       logger.error('This is an error message.');
-      res.status(400).json({ error: error });
+      res.status(400).json({ error: error.message });
     }
   }
 );
@@ -125,7 +125,7 @@ app.get(
       }
      } catch (error) {
       logger.error('This is an error message.');
-      res.status(400).json({ error: error });
+      res.status(400).json({ error: error.message });
     }
   }
 );
@@ -157,7 +157,7 @@ app.get(
         });
      } catch (error) {
       logger.error('This is an error message.');
-      res.status(400).json({ error: error });
+      res.status(400).json({ error: error.message });
     }
   }
 );
@@ -185,7 +185,7 @@ app.get(
      } catch (error) {
       logger.error('This is an error message.');
 
-      res.status(400).json({ error: error });
+      res.status(400).json({ error: error.message });
     }
   }
 );
@@ -227,7 +227,7 @@ app.post(
     } catch (error) {
       logger.error('This is an error message.');
 
-      res.status(400).json({ error: error });
+      res.status(400).json({ error: error.message });
     }
   }
 );
@@ -269,7 +269,7 @@ app.get(
     } catch (error) {
       logger.error('This is an error message.');
 
-      res.status(400).json({ error: error });
+      res.status(400).json({ error: error.message });
     }
   }
 );
@@ -334,7 +334,7 @@ app.get(
     } catch (error) {
       logger.error('This is an error message.');
 
-      res.status(400).json({ error: error });
+      res.status(400).json({ error: error.message });
     }
   }
 );
@@ -395,7 +395,7 @@ app.get(
     } catch (error) {
       logger.error('This is an error message.');
 
-      res.status(400).json({ error: error });
+      res.status(400).json({ error: error.message });
     }
   }
 );
@@ -439,7 +439,7 @@ app.put(
     } catch (error) {
       logger.error('This is an error message.');
 
-      res.status(400).json({ error: error });
+      res.status(400).json({ error: error.message });
     }
   }
 );
@@ -511,7 +511,7 @@ app.put(
     } catch (error) {
       logger.error('This is an error message.');
 
-      res.status(400).json({ error: error });
+      res.status(400).json({ error: error.message });
     }
   }
 );
@@ -550,7 +550,7 @@ app.delete(
     } catch (error) {
       logger.error('This is an error message.');
 
-      res.status(400).json({ error: error });
+      res.status(400).json({ error: error.message });
     }
   }
 );
@@ -621,7 +621,7 @@ app.post(
     } catch (error) {
       logger.error('This is an error message.');
 
-      res.status(400).json({ error: error });
+      res.status(400).json({ error: error.message });
     }
   }
 );
@@ -659,7 +659,7 @@ app.post(
     } catch (error) {
       logger.error('This is an error message.');
 
-      res.status(400).json({ error: error });
+      res.status(400).json({ error: error.message });
     }
   }
 );
@@ -720,7 +720,7 @@ app.post(
     } catch (error) {
       logger.error('This is an error message.');
 
-      res.status(400).json({ error: error });
+      res.status(400).json({ error: error.message });
     }
   }
 );
