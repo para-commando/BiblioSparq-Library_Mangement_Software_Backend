@@ -4,6 +4,10 @@ const { Op } = require('sequelize');
 const { SendInBlueApiInstance,} = require('../../../shared/src/thirdPartyServices/sendInBlue.services');
 const { twilioSmsClient } = require('../../../shared/src/thirdPartyServices/twilio.services');
 const { getStartDayAndEndDay,} = require('../../../shared/src/utilities/notificationManagementUtilities');
+const {
+   dueDateUserGroupMapping,
+  borrowedDateUserGroupMapping,
+} = require('../../../shared/src/constants/objects.constants');
 module.exports.notificationManagementProcesses = {
   notifySpecificUserGroups: async ({ message, userGroupName }) => {
     try {
