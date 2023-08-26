@@ -151,7 +151,7 @@ Each service exposes its own set of APIs.
    
 ```
 ## Directory Structure
-
+```
 BiblioSparq-Library_Mangement_Software_Backend
 |
 ├── API-Gateway
@@ -220,7 +220,7 @@ BiblioSparq-Library_Mangement_Software_Backend
         │   └── process.js
         └── Process-Mappers
             └── processMappers.js
-
+```
 ## Scripts
 
     npm startDev: Starts the services using PM2 in development mode.
