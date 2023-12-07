@@ -2,7 +2,8 @@
 
 This repository contains the backend microservices for the Library Management System. These microservices provide various APIs to manage books, notifications, and user-specific history related to the library system.  It follows the RESTful architectural style, employing HTTP methods like GET, POST, PUT, and DELETE for communication. JSON is used as the data exchange format, making it lightweight and widely compatible with modern web and mobile applications.
 
-![Example Image](./shared/src/assets/library.jpg)
+![library](https://github.com/anirudh-nayak-172k/BiblioSparq-Library_Mangement_Software_Backend/assets/123434846/e1b10323-89c1-46ad-9293-ad844a170d6d)
+
 
 ## Technologies Used
 - Node.js
